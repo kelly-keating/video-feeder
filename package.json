@@ -10,7 +10,8 @@
     "dev": "run-p dev:build dev:server",
     "dev:build": "webpack --watch",
     "dev:server": "nodemon server",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "knex": "knex --knexfile server/db/knexfile.js"
   },
   "babel": {
     "plugins": [

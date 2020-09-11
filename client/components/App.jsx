@@ -18,10 +18,6 @@ class App extends React.Component {
   }
 
   renderVideos(data) {
-    const style = {
-      maxHeight: "100%"
-    }
-
     return (
       <div className="tile is-ancestor">
         {data.videos.map(video => (

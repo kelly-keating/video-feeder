@@ -60,6 +60,7 @@ router.get('/playlist/:id', (req, res) => {
     .get('https://www.youtube.com/feeds/videos.xml?playlist_id=' + req.params.id)
     .then(req => {
       console.log(req.text)
+      // TODO: are playlists in a different format to channels?
       res.json('boop')
     })
 })

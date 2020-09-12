@@ -1,20 +1,15 @@
-const express = require('express')
 const request = require('superagent')
 const xml2jsParser = require('superagent-xml2jsparser')
 
-const router = express.Router()
 
-const db = require('./db')
-
-
-router.get('/channel/:id', (req, res) => {
+function getChannelFeed (id) {
   return request
-    .get('https://www.youtube.com/feeds/videos.xml?channel_id=' + req.params.id)
+    .get('https://www.youtube.com/feeds/videos.xml?channel_id=' + id)
     .accept('xml')
     .buffer(true)
     .parse(xml2jsParser)
-    .then(data => {
-      const {feed} = data.body
+    .then(res => {
+      const {feed} = res.body
       
       feed.id = feed["yt:channelId"][0]
       feed.title = feed.title[0]
@@ -51,18 +46,13 @@ router.get('/channel/:id', (req, res) => {
       delete feed.$
       delete feed.entry
 
-      res.json(feed)
+      return feed
     })
-})
+}
 
-router.get('/playlist/:id', (req, res) => {
-  return request
-    .get('https://www.youtube.com/feeds/videos.xml?playlist_id=' + req.params.id)
-    .then(req => {
-      console.log(req.text)
-      // TODO: are playlists in a different format to channels?
-      res.json('boop')
-    })
-})
+// .get('https://www.youtube.com/feeds/videos.xml?playlist_id=' + req.params.id)
+// TODO: are playlists in a different format to channels?
 
-module.exports = router
+module.exports = {
+  getChannelFeed
+}

@@ -8,7 +8,7 @@ import { saveOneGroup } from '../actions'
 class AddFeed extends React.Component {
 
   state = {
-    showModal: true,
+    showModal: false,
     channelUrl: 'UC-7oMv6E4Uz2tF51w5Sj49w',
     data: null,
     loadingFeed: false,

@@ -2,16 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import AddFeed from './AddFeed'
+import VideoList from './VideoList'
 
 import { getChannelInfo, getGroups } from '../api'
-import { saveGroups } from '../actions'
+import { saveGroups, addVideos } from '../actions'
 
 
 class App extends React.Component {
-
-  state = {
-    data: null
-  }
 
   componentDidMount() {
     getGroups()
@@ -20,24 +17,8 @@ class App extends React.Component {
     getChannelInfo('UC-7oMv6E4Uz2tF51w5Sj49w')
       .then(data => {
         console.log(data)
-        this.setState({ data })
+        this.props.dispatch(addVideos(data.videos))
       })
-  }
-
-  renderVideos(data) {
-    return (
-      <div className="tile is-ancestor">
-        {data.videos.map(video => (
-          <div key={video.id} className="tile is-parent is-3">
-            <article className="tile is-child box">
-              <img src={video.thumbnail} className="is-3-tablet"/>
-              <p className="title">{video.title}</p>
-              <p className="subtitle">{video.description.split('\n')[0]}</p>
-            </article>
-          </div>
-        ))}
-      </div>
-    )
   }
  
   render() {
@@ -47,7 +28,7 @@ class App extends React.Component {
         <p>Navigation Buttons</p>
         <AddFeed />
         <p>Subscriptions List</p>
-        {this.state.data && this.renderVideos(this.state.data)}
+        <VideoList />
       </div>
     )
   }

@@ -11,3 +11,7 @@ html {
 .is-ancestor {
   flex-wrap: wrap;
 }
+
+.footer-is-right {
+  justify-content: flex-end;
+}

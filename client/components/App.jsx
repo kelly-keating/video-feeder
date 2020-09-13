@@ -1,6 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-import { getChannelFeed } from '../api'
+import AddFeed from './AddFeed'
+
+import { getChannelInfo, getGroups } from '../api'
+import { saveGroups } from '../actions'
 
 
 class App extends React.Component {
@@ -10,7 +14,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    getChannelFeed('UC-7oMv6E4Uz2tF51w5Sj49w')
+    getGroups()
+      .then(groups => this.props.dispatch(saveGroups(groups)))
+
+    getChannelInfo('UC-7oMv6E4Uz2tF51w5Sj49w')
       .then(data => {
         console.log(data)
         this.setState({ data })
@@ -38,7 +45,7 @@ class App extends React.Component {
       <div className="container" >
         <h1>Title - Hi :)</h1>
         <p>Navigation Buttons</p>
-        <p>Add Subscription Form</p>
+        <AddFeed />
         <p>Subscriptions List</p>
         {this.state.data && this.renderVideos(this.state.data)}
       </div>
@@ -46,4 +53,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default connect()(App)

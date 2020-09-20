@@ -4,7 +4,7 @@
   "description": "Consuming RSS feeds and storing for later perusal",
   "author": "Kelly Keating",
   "scripts": {
-    "build": "webpack && knex migrate:latest",
+    "build": "webpack",
     "postinstall": "knex migrate:latest",
     "server": "node server",
     "start": "run-s build server",

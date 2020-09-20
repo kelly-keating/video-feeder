@@ -5,14 +5,14 @@
   "author": "Kelly Keating",
   "scripts": {
     "build": "webpack",
-    "postinstall": "npm run knex migrate:latest",
+    "postinstall": "knex-run migrate:latest",
     "server": "node server",
     "start": "run-s build server",
     "dev": "run-p dev:build dev:server",
     "dev:build": "webpack --watch",
     "dev:server": "nodemon server",
     "test": "jest --watchAll",
-    "knex": "knex --knexfile server/db/knexfile.js"
+    "knex-run": "knex --knexfile server/db/knexfile.js"
   },
   "babel": {
     "plugins": [

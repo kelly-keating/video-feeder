@@ -5,7 +5,7 @@
   "author": "Kelly Keating",
   "scripts": {
     "build": "webpack",
-    "postinstall": "knex-run migrate:latest",
+    "postinstall": "npm run knex-run migrate:latest",
     "server": "node server",
     "start": "run-s build server",
     "dev": "run-p dev:build dev:server",

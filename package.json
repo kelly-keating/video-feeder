@@ -5,11 +5,8 @@
   "author": "Kelly Keating",
   "scripts": {
     "postinstall": "webpack && npm run knex migrate:latest",
-    "server": "node server",
-    "start": "run-s build server",
-    "dev": "run-p dev:build dev:server",
-    "dev:build": "webpack --watch",
-    "dev:server": "nodemon server",
+    "start": "node server",
+    "dev": "webpack --watch & nodemon server",
     "test": "jest --watchAll",
     "knex": "knex --knexfile server/db/knexfile.js"
   },
@@ -40,7 +37,6 @@
     "babel-loader": "^8.1.0",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
-    "npm-run-all": "^4.1.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",

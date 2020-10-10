@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-// import AddFeed from './AddFeed'
-// import VideoList from './VideoList'
+import AddFeed from './AddFeed'
+import VideoList from './VideoList'
 
 import { getChannelInfo, getGroups } from '../api'
 import { saveGroups, addVideos } from '../actions'
@@ -26,9 +26,9 @@ class App extends React.Component {
       <div className="container" >
         <h1>Title - Hi :)</h1>
         <p>Navigation Buttons</p>
-        {/* <AddFeed /> */}
+        <AddFeed />
         <p>Subscriptions List</p>
-        {/* <VideoList /> */}
+        <VideoList />
       </div>
     )
   }

@@ -49,3 +49,9 @@ export function addSubscription (subscription, videos) {
     .send({ subscription, videos })
     .then(req => req.body)
 }
+
+export function refreshFeeds () {
+  return request
+    .get('/v1/refresh')
+    .then(req => req.body)
+}

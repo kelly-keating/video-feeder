@@ -30,10 +30,11 @@ router.post('/subs', (req, res) => {
 // get channel info from db
 // get all videos
 
-// get all videos
-// get all channels from db
-// for each do a request
-// after, map and combine
+router.get('/videos', (req, res) => {
+  db.getVideos()
+    .then(videos => res.json(videos))
+    .catch(err => res.status(500).json({ err: err.message }))
+})
 
 router.get('/groups', (req, res) => {
   db.getGroups()

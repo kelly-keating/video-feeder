@@ -4,19 +4,19 @@ import { connect } from 'react-redux'
 import AddFeed from './AddFeed'
 import VideoList from './VideoList'
 
-import { getChannelInfo, getGroups } from '../api'
+import { getChannelInfo, getVideosAndGroups } from '../api'
 import { saveGroups, addVideos } from '../actions'
 
 class App extends React.Component {
-  componentDidMount () {
-    getGroups()
-      .then(groups => this.props.dispatch(saveGroups(groups)))
-      .catch(err => console.log(err.message))
+  componentDidMount () {      
+    // getChannelInfo('UC-7oMv6E4Uz2tF51w5Sj49w')
 
-    getChannelInfo('UC-7oMv6E4Uz2tF51w5Sj49w')
+    // TODO: update videos in db, re load videos?
+    getVideosAndGroups()
       .then(data => {
-        console.log(data)
-        this.props.dispatch(addVideos(data.videos))
+        const {groups, videos} = data
+        this.props.dispatch(saveGroups(groups))
+        this.props.dispatch(addVideos(videos))
       })
       .catch(err => console.log(err.message))
   }

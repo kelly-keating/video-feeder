@@ -1,5 +1,7 @@
 import request from 'superagent'
 
+// YOUTUBE INTERACTIONS
+
 export function getChannelInfo (id) {
   return request
     .get('/v1/youtube/channel/' + id)
@@ -10,6 +12,22 @@ export function getPlaylistFeed (id) {
   return request
     .get('/v1/youtube/playlist/' + id)
     .then(req => req.body)
+}
+
+// DATABASE INTERACTIONS
+
+export function getVideosAndGroups () {
+  return Promise.all([ getGroups(), getVideos() ])
+    .then(both => {
+      const [groups, videos] = both
+      return { groups, videos }
+    })
+}
+
+export function getVideos () {
+  return request
+    .get('/v1/videos')
+    .then(res => res.body)
 }
 
 export function getGroups () {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { getChannelInfo, addGroup } from '../api'
+import { getChannelInfo, addGroup, addSubscription } from '../api'
 import { saveOneGroup } from '../actions'
 
 
@@ -64,6 +64,21 @@ class AddFeed extends React.Component {
           loadingFeed: false
         })
       })
+      .then(() => {
+        console.log(this.state.data)
+      })
+  }
+
+  saveData = (evt) => {
+    evt.preventDefault()
+    const subscription = {...this.state.data, groupId: this.state.currentGroup}
+    const videos = subscription.videos
+    delete subscription.videos
+
+    addSubscription(subscription, videos)
+      .then(console.log)
+      .catch(err => console.log('catch', err.message))
+
   }
 
   renderInfo = () => {
@@ -135,7 +150,13 @@ class AddFeed extends React.Component {
           {this.state.data && this.renderInfo()}
         </section>
         <footer className="modal-card-foot footer-is-right">
-          <button className="button is-primary" disabled={this.state.data ? false : true}>Save</button>
+          <button 
+            className="button is-primary" 
+            disabled={this.state.data ? false : true}
+            onClick={this.saveData}
+          >
+            Save
+          </button>
         </footer>
       </div>
     </div>

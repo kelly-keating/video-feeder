@@ -24,6 +24,7 @@ function getChannelFeed (id) {
 
         video.id = entry["yt:videoId"][0]
         video.title = entry.title[0]
+        video.sub_id = feed.id
         video.published = entry.published[0]
         video.updated = entry.updated[0]
         video.link = entry.link[0].$.href

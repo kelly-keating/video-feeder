@@ -4,12 +4,9 @@
   "description": "Consuming RSS feeds and storing for later perusal",
   "author": "Kelly Keating",
   "scripts": {
-    "build": "webpack",
-    "server": "node server",
-    "start": "run-s build server",
-    "dev": "run-p dev:build dev:server",
-    "dev:build": "webpack --watch",
-    "dev:server": "nodemon server",
+    "postinstall": "webpack && npm run knex migrate:latest",
+    "start": "node server",
+    "dev": "webpack --watch & nodemon server",
     "test": "jest --watchAll",
     "knex": "knex --knexfile server/db/knexfile.js"
   },
@@ -26,6 +23,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "knex": "^0.21.5",
+    "moment": "^2.28.0",
+    "pg": "^8.3.3",
     "superagent": "^6.1.0",
     "superagent-xml2jsparser": "^0.1.1"
   },
@@ -38,7 +37,6 @@
     "babel-loader": "^8.1.0",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
-    "npm-run-all": "^4.1.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",

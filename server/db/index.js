@@ -13,7 +13,46 @@ function addGroup(name) {
     .insert({ name })
 }
 
+function subExists (id) {
+  return db('Subscriptions')
+    .where('id', id)
+    .then(matches => {
+      if(matches.length > 0) throw Error("Already subscribed")
+    })
+}
+
+function getSubscriptions() {
+  return db('Subscriptions')
+}
+
+function addSub(subscription) {
+  return db('Subscriptions')
+    .insert(subscription)
+}
+
+function getVideos() {
+  return db('Videos')
+}
+
+function getVideosByChannel(id) {
+  return db('Videos')
+    .where('id', id)
+}
+
+function addVideos(videos) {
+  return db('Videos')
+    .insert(videos)
+}
+
 module.exports = {
   getGroups,
   addGroup,
+
+  subExists,
+  getSubscriptions,
+  addSub,
+
+  getVideos,
+  getVideosByChannel,
+  addVideos,
 }

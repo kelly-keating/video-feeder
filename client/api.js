@@ -24,3 +24,10 @@ export function addGroup(name) {
     .send({ name })
     .then(req => req.body[0])
 }
+
+export function addSubscription(subscription, videos) {
+  return request
+    .post('/v1/subs')
+    .send({ subscription, videos })
+    .then(req => req.body)
+}

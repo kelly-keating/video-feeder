@@ -40,7 +40,7 @@ export function addGroup (name) {
   return request
     .post('/v1/groups')
     .send({ name })
-    .then(req => req.body[0])
+    .then(req => req.body)
 }
 
 export function addSubscription (subscription, videos) {

@@ -44,7 +44,7 @@ router.get('/groups', (req, res) => {
 
 router.post('/groups', (req, res) => {
   db.addGroup(req.body.name)
-    .then(ids => res.json(ids))
+    .then(ids => res.json(ids[0]))
     .catch(err => res.status(500).json({ err: err.message }))
 })
 

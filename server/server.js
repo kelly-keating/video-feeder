@@ -14,6 +14,7 @@ server.use('/v1', routes)
 server.get('/v1/youtube/channel/:id', (req, res) => {
   youtube.getChannelFeed(req.params.id)
     .then(feed => res.json(feed))
+    .catch(err => console.log(err.message))
 })
 
 module.exports = server

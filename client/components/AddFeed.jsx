@@ -4,9 +4,7 @@ import { connect } from 'react-redux'
 import { getChannelInfo, addGroup, addSubscription } from '../api'
 import { saveOneGroup } from '../actions'
 
-
 class AddFeed extends React.Component {
-
   state = {
     showModal: false,
     channelUrl: 'UC-7oMv6E4Uz2tF51w5Sj49w',
@@ -14,7 +12,7 @@ class AddFeed extends React.Component {
     loadingFeed: false,
     newGroupIsVisible: false,
     newGroup: '',
-    currentGroup: 0,
+    currentGroup: 0
   }
 
   openModal = () => {
@@ -31,15 +29,16 @@ class AddFeed extends React.Component {
 
   addNewGroup = () => {
     addGroup(this.state.newGroup)
-    .then(id => {
+      .then(id => {
         const newGroup = { name: this.state.newGroup, id }
         this.props.dispatch(saveOneGroup(newGroup))
-        this.setState({ 
+        this.setState({
           newGroupIsVisible: false,
           newGroup: '',
           currentGroup: id
         })
       })
+      .catch(err => console.log(err.message))
   }
 
   changeGroup = (evt) => {
@@ -59,7 +58,7 @@ class AddFeed extends React.Component {
     this.setState({ loadingFeed: true })
     getChannelInfo(this.state.channelUrl)
       .then(data => {
-        this.setState({ 
+        this.setState({
           data,
           loadingFeed: false
         })
@@ -67,52 +66,52 @@ class AddFeed extends React.Component {
       .then(() => {
         console.log(this.state.data)
       })
+      .catch(err => console.log(err.message))
   }
 
   saveData = (evt) => {
     evt.preventDefault()
-    const subscription = {...this.state.data, groupId: this.state.currentGroup}
+    const subscription = { ...this.state.data, groupId: this.state.currentGroup }
     const videos = subscription.videos
     delete subscription.videos
 
     addSubscription(subscription, videos)
       .then(console.log)
       .catch(err => console.log('catch', err.message))
-
   }
 
   renderInfo = () => {
-    const {data} = this.state
+    const { data } = this.state
     return (
       <>
-      <div>
-        <p>This is the feed for</p>
-        <h2>{data.author}</h2>
-      </div>
-      <label className="label">Add feed to a group?</label>
-      <div className="field is-grouped">
-        <div className="control">
-          <div className="select is-fullwidth">
-            <select name="country" value={this.state.currentGroup} onChange={this.changeGroup}>
-              {this.props.groups.map(g => <option value={g.id} key={g.id}>{g.name}</option>)}
-            </select>
+        <div>
+          <p>This is the feed for</p>
+          <h2>{data.author}</h2>
+        </div>
+        <label className="label">Add feed to a group?</label>
+        <div className="field is-grouped">
+          <div className="control">
+            <div className="select is-fullwidth">
+              <select name="country" value={this.state.currentGroup} onChange={this.changeGroup}>
+                {this.props.groups.map(g => <option value={g.id} key={g.id}>{g.name}</option>)}
+              </select>
+            </div>
+          </div>
+          {this.state.newGroupIsVisible && <p className="control is-expanded">
+            <input className="input" type="text"
+              placeholder="New group name"
+              value={this.state.newGroup}
+              onChange={this.updateGroupText}
+            />
+          </p>}
+          <div className="control">
+            {
+              this.state.newGroupIsVisible
+                ? <button className="button is-primary" onClick={this.addNewGroup}>+</button>
+                : <button className="button is-primary" onClick={this.showAddGroup}>Add New Group</button>
+            }
           </div>
         </div>
-        {this.state.newGroupIsVisible && <p className="control is-expanded">
-          <input className="input" type="text" 
-            placeholder="New group name" 
-            value={this.state.newGroup} 
-            onChange={this.updateGroupText} 
-          />
-        </p>}
-        <div className="control">
-          {
-            this.state.newGroupIsVisible ?
-            <button className="button is-primary" onClick={this.addNewGroup}>+</button> :
-            <button className="button is-primary" onClick={this.showAddGroup}>Add New Group</button>
-          }
-        </div>
-      </div>
       </>
     )
   }
@@ -120,16 +119,16 @@ class AddFeed extends React.Component {
   renderForm = () => (
     <div className="field has-addons">
       <div className="control is-expanded">
-        <input className="input" type="text" 
-          placeholder="Enter channel ID" 
-          value={this.state.channelUrl} 
-          onChange={this.updateIdText} 
+        <input className="input" type="text"
+          placeholder="Enter channel ID"
+          value={this.state.channelUrl}
+          onChange={this.updateIdText}
         />
       </div>
       <div className="control">
-        <div 
-          className={"button is-primary" + (this.state.loadingFeed ? " is-loading" : "")} 
-          onClick={this.handleSubmit} 
+        <div
+          className={'button is-primary' + (this.state.loadingFeed ? ' is-loading' : '')}
+          onClick={this.handleSubmit}
         >
           Search
         </div>
@@ -150,9 +149,9 @@ class AddFeed extends React.Component {
           {this.state.data && this.renderInfo()}
         </section>
         <footer className="modal-card-foot footer-is-right">
-          <button 
-            className="button is-primary" 
-            disabled={this.state.data ? false : true}
+          <button
+            className="button is-primary"
+            disabled={!this.state.data}
             onClick={this.saveData}
           >
             Save
@@ -161,8 +160,8 @@ class AddFeed extends React.Component {
       </div>
     </div>
   )
- 
-  render() {
+
+  render () {
     return (
       <>
         <div className="container" >
@@ -174,7 +173,7 @@ class AddFeed extends React.Component {
   }
 }
 
-function reduxToProps(state) {
+function reduxToProps (state) {
   return {
     groups: state.groups
   }

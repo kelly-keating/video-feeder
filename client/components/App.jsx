@@ -7,21 +7,21 @@ import VideoList from './VideoList'
 import { getChannelInfo, getGroups } from '../api'
 import { saveGroups, addVideos } from '../actions'
 
-
 class App extends React.Component {
-
-  componentDidMount() {
+  componentDidMount () {
     getGroups()
       .then(groups => this.props.dispatch(saveGroups(groups)))
+      .catch(err => console.log(err.message))
 
     getChannelInfo('UC-7oMv6E4Uz2tF51w5Sj49w')
       .then(data => {
         console.log(data)
         this.props.dispatch(addVideos(data.videos))
       })
+      .catch(err => console.log(err.message))
   }
- 
-  render() {
+
+  render () {
     return (
       <div className="container" >
         <h1>Title - Hi :)</h1>

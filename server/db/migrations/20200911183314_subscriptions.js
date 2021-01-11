@@ -1,4 +1,3 @@
-
 exports.up = (knex) => {
   return knex.schema.createTable('Subscriptions', table => {
     table.string('id')

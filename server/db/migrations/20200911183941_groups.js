@@ -1,4 +1,3 @@
-
 exports.up = (knex) => {
   return knex.schema.createTable('Groups', table => {
     table.increments('id')

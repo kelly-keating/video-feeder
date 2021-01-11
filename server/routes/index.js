@@ -5,7 +5,7 @@ const { getChannelFeed } = require('./youtubeApi')
 const db = require('../db')
 
 router.post('/subs', (req, res) => {
-  let {subscription, videos} = req.body
+  let { subscription, videos } = req.body
 
   subscription.group_id = subscription.groupId
   delete subscription.groupId
@@ -18,7 +18,7 @@ router.post('/subs', (req, res) => {
   db.subExists(subscription.id)
     .then(() => db.addSub(subscription))
     .then(() => db.addVideos(videos))
-    .then(() => res.json("yay"))
+    .then(() => res.json('yay'))
     .catch(err => {
       // TODO: ask Ross why this was needed to overwrite 'Internal Server Error'
       res.statusMessage = err.message
@@ -27,13 +27,13 @@ router.post('/subs', (req, res) => {
 })
 
 // get videos for a channel
-  // get channel info from db
-  // get all videos
+// get channel info from db
+// get all videos
 
 // get all videos
-  // get all channels from db
-  // for each do a request
-  // after, map and combine
+// get all channels from db
+// for each do a request
+// after, map and combine
 
 router.get('/groups', (req, res) => {
   db.getGroups()

@@ -1,4 +1,3 @@
-
 exports.up = (knex) => {
   return knex.schema.createTable('Videos', table => {
     table.string('id')

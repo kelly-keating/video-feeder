@@ -3,12 +3,11 @@ const env = process.env.NODE_ENV || 'development'
 const config = require('./knexfile')[env]
 const db = knex(config)
 
-
-function getGroups() {
+function getGroups () {
   return db('Groups')
 }
 
-function addGroup(name) {
+function addGroup (name) {
   return db('Groups')
     .insert({ name })
 }
@@ -17,29 +16,29 @@ function subExists (id) {
   return db('Subscriptions')
     .where('id', id)
     .then(matches => {
-      if(matches.length > 0) throw Error("Already subscribed")
+      if (matches.length > 0) throw Error('Already subscribed')
     })
 }
 
-function getSubscriptions() {
+function getSubscriptions () {
   return db('Subscriptions')
 }
 
-function addSub(subscription) {
+function addSub (subscription) {
   return db('Subscriptions')
     .insert(subscription)
 }
 
-function getVideos() {
+function getVideos () {
   return db('Videos')
 }
 
-function getVideosByChannel(id) {
+function getVideosByChannel (id) {
   return db('Videos')
     .where('id', id)
 }
 
-function addVideos(videos) {
+function addVideos (videos) {
   return db('Videos')
     .insert(videos)
 }
@@ -54,5 +53,5 @@ module.exports = {
 
   getVideos,
   getVideosByChannel,
-  addVideos,
+  addVideos
 }

@@ -20,7 +20,19 @@ class AddFeed extends React.Component {
   }
 
   closeModal = () => {
-    this.setState({ showModal: false })
+    this.resetState()
+  }
+
+  resetState = () => {
+    this.setState({
+      showModal: false,
+      channelUrl: '',
+      data: null,
+      loadingFeed: false,
+      newGroupIsVisible: false,
+      newGroup: '',
+      currentGroup: 0
+    })
   }
 
   showAddGroup = () => {
@@ -78,15 +90,7 @@ class AddFeed extends React.Component {
     addSubscription(subscription, videos)
       .then(() => {
         this.props.dispatch(addVideos(videos))
-        this.setState({
-            showModal: false,
-            channelUrl: '',
-            data: null,
-            loadingFeed: false,
-            newGroupIsVisible: false,
-            newGroup: '',
-            currentGroup: 0
-        })
+        this.resetState()
       })
       .catch(err => console.log('catch', err.message))
   }

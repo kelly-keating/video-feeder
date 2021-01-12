@@ -20,11 +20,6 @@ router.get('/refresh', (req, res) => {
         .then(() => res.json(vids))
       )
     .catch(err => console.log(err.message))
-     
-    // for each channel, get updated, get new
-    // with updated, update those vids
-    // with new, add those vids
-    // return (both? new?) to front end
     
   // TODO: update already existing videos?
 })

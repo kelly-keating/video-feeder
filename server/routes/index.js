@@ -89,17 +89,17 @@ function makeOneArray (arrays) {
 }
 
 function getUpdatedVids (channels) {
-  const updatedVidFuncs = channels.map(channel => {
-    return db.getLastUpdate(channel.id)
-      .then(lastUpdate => {
-        const existenceChecks = channel.videos.map(vid => db.vidExists(vid.id).then(() => null).catch(() => vid))
-        
-        return Promise.all(existenceChecks)
-          .then(existingVids => existingVids.filter(vid => vid !== null))
-          .then(vids => vids.filter(vid => new Date(vid.updated) > new Date(JSON.parse(lastUpdate))))
-      })
+  const channelUpdateFuncs = channels.map(channel => {
+    const existenceChecks = channel.videos.map(vid => db.vidExists(vid.id).then(() => null).catch(() => vid))
+    
+    return Promise.all(existenceChecks)
+      .then(existingVids => existingVids.filter(vid => vid !== null))
+      .then(incoming => incoming.map((vid) => db.getVideoById(vid.id).then(orig => ({ orig, new: vid }))))
+      .then(pairingFuncs => Promise.all(pairingFuncs))
+      .then(pairs => pairs.filter(pair => pair.orig.updated !== pair.new.updated))
+      .then(changedArr => changedArr.map(changed => changed.new))
   })
-  return Promise.all(updatedVidFuncs)
+  return Promise.all(channelUpdateFuncs)
     .then(updatedVidArrs => makeOneArray(updatedVidArrs))
 }
 

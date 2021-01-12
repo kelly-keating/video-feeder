@@ -55,7 +55,13 @@ function getVideos () {
 
 function getVideosByChannel (id) {
   return db('Videos')
+    .where('sub_id', id)
+}
+
+function getVideoById (id) {
+  return db('Videos')
     .where('id', id)
+    .first()
 }
 
 function addVideos (videos) {
@@ -82,6 +88,7 @@ module.exports = {
   vidExists,
   getVideos,
   getVideosByChannel,
+  getVideoById,
   addVideos,
   updateVideo
 }

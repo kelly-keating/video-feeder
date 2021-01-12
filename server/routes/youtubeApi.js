@@ -38,6 +38,9 @@ function getChannelFeed (id) {
         video.views = stats['media:statistics'][0].$.views
         video.rating = stats['media:starRating'][0].$
 
+        delete video.rating.min
+        delete video.rating.max
+
         return video
       })
 

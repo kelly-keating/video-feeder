@@ -40,6 +40,9 @@ router.post('/subs', (req, res) => {
   delete subscription.groupId
   videos = videos.map(video => stringifyVideo(video))
 
+  const now = new Date()
+  subscription.last_updated(JSON.stringify(now))
+
   db.subExists(subscription.id)
     .then(() => db.addSub(subscription))
     .then(() => db.addVideos(videos))

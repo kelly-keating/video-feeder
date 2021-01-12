@@ -63,6 +63,12 @@ function addVideos (videos) {
     .insert(videos)
 }
 
+function updateVideo (id, video) {
+  return db('Videos')
+    .update(video)
+    .where('id', id)
+}
+
 module.exports = {
   getGroups,
   addGroup,
@@ -76,5 +82,6 @@ module.exports = {
   vidExists,
   getVideos,
   getVideosByChannel,
-  addVideos
+  addVideos,
+  updateVideo
 }

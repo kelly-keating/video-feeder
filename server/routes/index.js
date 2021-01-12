@@ -10,18 +10,22 @@ router.get('/refresh', (req, res) => {
   db.getSubscriptions()
     .then(subs => subs.map(sub => getChannelFeed(sub.id)))
     .then(updateCalls => Promise.all(updateCalls))
-    .then(channels => channels.map(channel => db.getLastUpdate(channel.id)
-        .then(lastUpdate => channel.videos.filter(vid => new Date(vid.published) > new Date(JSON.parse(lastUpdate))))
-      ))
-    .then(oldVidPurge => Promise.all(oldVidPurge)) 
-    .then(newVidArrs => newVidArrs.reduce((collector, vidArr) => [...collector, ...vidArr], []))
-    .then(newVids => newVids.length ? db.addVideos(newVids.map(video => stringifyVideo(video))).then(() => newVids) : [])
-    .then(vids => db.setUpdated(JSON.stringify(now))
-        .then(() => res.json(vids))
-      )
+    .then(channels => [getUpdatedVids(channels), getNewVids(channels)])
+    .then(funcArr => Promise.all(funcArr))
+    .then(vidArr => {
+      const [updatedVids, newVids] = vidArr
+      const dbSafe = vidArr => vidArr.map(video => stringifyVideo(video))
+
+      return updateAllVids(dbSafe(updatedVids))
+        .then(() => newVids.length ? db.addVideos(dbSafe(newVids)) : [])
+        .then(() => ({
+          new: newVids,
+          updated: updatedVids
+        }))
+    })
+    .then(vidObj => db.setUpdated(JSON.stringify(now)).then(() => vidObj))
+    .then(vidObj => res.json(vidObj))
     .catch(err => console.log(err.message))
-    
-  // TODO: update already existing videos?
 })
 
 router.post('/subs', (req, res) => {
@@ -32,11 +36,11 @@ router.post('/subs', (req, res) => {
   videos = videos.map(video => stringifyVideo(video))
 
   const now = new Date()
-  subscription.last_updated(JSON.stringify(now))
+  subscription.last_updated = JSON.stringify(now)
 
   db.subExists(subscription.id)
     .then(() => db.addSub(subscription))
-    .then(() => db.addVideos(videos))
+    .then(() => videos.length ? db.addVideos(videos) : [])
     .then(() => res.json('yay'))
     .catch(err => {
       // TODO: ask Ross why this was needed to overwrite 'Internal Server Error'
@@ -78,4 +82,37 @@ function parseVideo (video) {
   video.content = JSON.parse(video.content)
   video.rating = JSON.parse(video.rating)
   return video
+}
+
+function makeOneArray (arrays) {
+  return arrays.reduce((collector, arr) => [...collector, ...arr], [])
+}
+
+function getUpdatedVids (channels) {
+  const updatedVidFuncs = channels.map(channel => {
+    return db.getLastUpdate(channel.id)
+      .then(lastUpdate => {
+        const existenceChecks = channel.videos.map(vid => db.vidExists(vid.id).then(() => null).catch(() => vid))
+        
+        return Promise.all(existenceChecks)
+          .then(existingVids => existingVids.filter(vid => vid !== null))
+          .then(vids => vids.filter(vid => new Date(vid.updated) > new Date(JSON.parse(lastUpdate))))
+      })
+  })
+  return Promise.all(updatedVidFuncs)
+    .then(updatedVidArrs => makeOneArray(updatedVidArrs))
+}
+
+function getNewVids (channels) {
+  const newVidFuncs = channels.map(channel => {
+    return db.getLastUpdate(channel.id)
+      .then(lastUpdate => channel.videos.filter(vid => new Date(vid.published) > new Date(JSON.parse(lastUpdate))))
+  })
+  return Promise.all(newVidFuncs)
+    .then(newVidArrs => makeOneArray(newVidArrs))
+}
+
+function updateAllVids (vids) {
+  const updates = vids.map(vid => db.updateVideo(vid.id, vid))
+  return Promise.resolve( updates.length ? Promise.all(updates) : [])
 }

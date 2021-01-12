@@ -5,7 +5,7 @@ import AddFeed from './AddFeed'
 import VideoList from './VideoList'
 
 import { getChannelInfo, getVideosAndGroups, refreshFeeds } from '../api'
-import { saveGroups, addVideos, saveAllTheVideos } from '../actions'
+import { saveGroups, addVideos, saveAllTheVideos, updateVideos } from '../actions'
 
 class App extends React.Component {
   componentDidMount () {      
@@ -24,7 +24,10 @@ class App extends React.Component {
 
   refreshVideos = () => {
     refreshFeeds()
-      .then(videos => this.props.dispatch(addVideos(videos)))
+      .then(videos => {
+        this.props.dispatch(addVideos(videos.new))
+        this.props.dispatch(updateVideos(videos.updated))
+      })
       .catch(err => console.log(err.message))
   }
 

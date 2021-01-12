@@ -18,7 +18,8 @@ function getChannelFeed (id) {
       feed.author = name[0]
       feed.uri = uri[0]
 
-      feed.videos = feed.entry.map(entry => {
+      
+      feed.videos = !feed.entry ? [] : feed.entry.map(entry => {
         const video = {}
 
         video.id = entry['yt:videoId'][0]

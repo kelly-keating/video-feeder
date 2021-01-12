@@ -5,6 +5,8 @@ const { getChannelFeed } = require('./youtubeApi')
 const db = require('../db')
 
 router.get('/refresh', (req, res) => {
+  const now = new Date() 
+
   db.getSubscriptions()
     .then(subs => subs.map(sub => getChannelFeed(sub.id)))
     .then(updateCalls => Promise.all(updateCalls))
@@ -14,9 +16,20 @@ router.get('/refresh', (req, res) => {
     .then(existenceChecks => Promise.all(existenceChecks))
     .then(newVids => newVids.filter(vid => vid !== null))
     .then(newVids => newVids.length ? db.addVideos(newVids.map(video => stringifyVideo(video))).then(() => newVids) : [])
+    .then(() => db.setUpdated(JSON.stringify(now)))
     .then(vids => res.json(vids))
+    // .then(() => {
+    //   console.log('vid:', new Date(vidDate))
+    //   console.log('now:', new Date())
+      
+    // now = new Date()
+    // json = JSON.stringify(now)
+    // console.log(Date.now() - Date(vidDate))
+    // })
     .catch(err => console.log(err.message))
 
+    // new Date(JSON.parse(json))
+    
   // TODO: how to update already existing videos?
 })
 

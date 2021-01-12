@@ -42,8 +42,9 @@ class VideoList extends React.Component {
 }
 
 function reduxToProps (state) {
+  const sortedVids = [...state.videos].sort((a, b) =>  new Date(b.published) - new Date(a.published))
   return {
-    videos: state.videos
+    videos: sortedVids
   }
 }
 

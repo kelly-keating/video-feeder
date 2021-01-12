@@ -29,6 +29,14 @@ function addSub (subscription) {
     .insert(subscription)
 }
 
+function vidExists (id) {
+  return db('Videos')
+    .where('id', id)
+    .then(matches => {
+      if (matches.length > 0) throw Error('Already subscribed')
+    })
+}
+
 function getVideos () {
   return db('Videos')
 }
@@ -51,6 +59,7 @@ module.exports = {
   getSubscriptions,
   addSub,
 
+  vidExists,
   getVideos,
   getVideosByChannel,
   addVideos

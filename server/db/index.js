@@ -29,6 +29,13 @@ function addSub (subscription) {
     .insert(subscription)
 }
 
+function getLastUpdate (id) {
+  return db('Subscriptions')
+    .where('id', id)
+    .first()
+    .then(match => match.last_updated)
+}
+
 function setUpdated (timeStr) {
   return db('Subscriptions')
     .update({ last_updated: timeStr })
@@ -63,6 +70,7 @@ module.exports = {
   subExists,
   getSubscriptions,
   addSub,
+  getLastUpdate,
   setUpdated,
 
   vidExists,

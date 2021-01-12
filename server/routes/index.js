@@ -10,27 +10,23 @@ router.get('/refresh', (req, res) => {
   db.getSubscriptions()
     .then(subs => subs.map(sub => getChannelFeed(sub.id)))
     .then(updateCalls => Promise.all(updateCalls))
-    .then(channels => channels.map(channel => channel.videos))
-    .then(vidArrays => vidArrays.reduce((collector, vidArr) => [...collector, ...vidArr], []))
-    .then(allVids => allVids.map(vid => db.vidExists(vid.id).then(() => vid).catch(err => null)))
-    .then(existenceChecks => Promise.all(existenceChecks))
-    .then(newVids => newVids.filter(vid => vid !== null))
+    .then(channels => channels.map(channel => db.getLastUpdate(channel.id)
+        .then(lastUpdate => channel.videos.filter(vid => new Date(vid.published) > new Date(JSON.parse(lastUpdate))))
+      ))
+    .then(oldVidPurge => Promise.all(oldVidPurge)) 
+    .then(newVidArrs => newVidArrs.reduce((collector, vidArr) => [...collector, ...vidArr], []))
     .then(newVids => newVids.length ? db.addVideos(newVids.map(video => stringifyVideo(video))).then(() => newVids) : [])
-    .then(() => db.setUpdated(JSON.stringify(now)))
-    .then(vids => res.json(vids))
-    // .then(() => {
-    //   console.log('vid:', new Date(vidDate))
-    //   console.log('now:', new Date())
-      
-    // now = new Date()
-    // json = JSON.stringify(now)
-    // console.log(Date.now() - Date(vidDate))
-    // })
+    .then(vids => db.setUpdated(JSON.stringify(now))
+        .then(() => res.json(vids))
+      )
     .catch(err => console.log(err.message))
-
-    // new Date(JSON.parse(json))
+     
+    // for each channel, get updated, get new
+    // with updated, update those vids
+    // with new, add those vids
+    // return (both? new?) to front end
     
-  // TODO: how to update already existing videos?
+  // TODO: update already existing videos?
 })
 
 router.post('/subs', (req, res) => {

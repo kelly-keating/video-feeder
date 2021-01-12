@@ -13,8 +13,9 @@ router.get('/refresh', (req, res) => {
     .then(allVids => allVids.map(vid => db.vidExists(vid.id).then(() => vid).catch(err => null)))
     .then(existenceChecks => Promise.all(existenceChecks))
     .then(newVids => newVids.filter(vid => vid !== null))
-    // TODO: add to db
-    .then(newVids => res.json(newVids))
+    .then(newVids => newVids.length ? db.addVideos(newVids).then(() => newVids) : [])
+    .then(vids => res.json(vids))
+    .catch(err => console.log(err.message))
 })
 
 router.post('/subs', (req, res) => {

@@ -2,7 +2,7 @@
 logs
 *.log
 npm-debug.log*
-
+dev.sqlite3-journal
 
 # Dependency directories
 node_modules

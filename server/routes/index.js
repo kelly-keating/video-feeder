@@ -16,6 +16,8 @@ router.get('/refresh', (req, res) => {
     .then(newVids => newVids.length ? db.addVideos(newVids).then(() => newVids) : [])
     .then(vids => res.json(vids))
     .catch(err => console.log(err.message))
+
+  // TODO: how to update already existing videos?
 })
 
 router.post('/subs', (req, res) => {

@@ -2,12 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { getChannelInfo, addGroup, addSubscription } from '../api'
-import { saveOneGroup } from '../actions'
+import { saveOneGroup, addVideos } from '../actions'
 
 class AddFeed extends React.Component {
   state = {
     showModal: false,
-    channelUrl: 'UC-7oMv6E4Uz2tF51w5Sj49w',
+    channelUrl: '',
     data: null,
     loadingFeed: false,
     newGroupIsVisible: false,
@@ -76,7 +76,18 @@ class AddFeed extends React.Component {
     delete subscription.videos
 
     addSubscription(subscription, videos)
-      .then(console.log)
+      .then(() => {
+        this.props.dispatch(addVideos(videos))
+        this.setState({
+            showModal: false,
+            channelUrl: '',
+            data: null,
+            loadingFeed: false,
+            newGroupIsVisible: false,
+            newGroup: '',
+            currentGroup: 0
+        })
+      })
       .catch(err => console.log('catch', err.message))
   }
 

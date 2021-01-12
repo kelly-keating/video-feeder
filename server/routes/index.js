@@ -13,7 +13,7 @@ router.get('/refresh', (req, res) => {
     .then(allVids => allVids.map(vid => db.vidExists(vid.id).then(() => vid).catch(err => null)))
     .then(existenceChecks => Promise.all(existenceChecks))
     .then(newVids => newVids.filter(vid => vid !== null))
-    .then(newVids => newVids.length ? db.addVideos(newVids).then(() => newVids) : [])
+    .then(newVids => newVids.length ? db.addVideos(newVids.map(video => stringifyVideo(video))).then(() => newVids) : [])
     .then(vids => res.json(vids))
     .catch(err => console.log(err.message))
 
@@ -25,11 +25,7 @@ router.post('/subs', (req, res) => {
 
   subscription.group_id = subscription.groupId
   delete subscription.groupId
-  videos = videos.map(video => {
-    video.content = JSON.stringify(video.content)
-    video.rating = String(video.rating.average)
-    return video
-  })
+  videos = videos.map(video => stringifyVideo(video))
 
   db.subExists(subscription.id)
     .then(() => db.addSub(subscription))
@@ -42,12 +38,9 @@ router.post('/subs', (req, res) => {
     })
 })
 
-// get videos for a channel
-// get channel info from db
-// get all videos
-
 router.get('/videos', (req, res) => {
   db.getVideos()
+    .then(videos => videos.map(vid => parseVideo(vid)))
     .then(videos => res.json(videos))
     .catch(err => res.status(500).json({ err: err.message }))
 })
@@ -65,3 +58,17 @@ router.post('/groups', (req, res) => {
 })
 
 module.exports = router
+
+// ----- UTILS ----- 
+
+function stringifyVideo (video) {
+  video.content = JSON.stringify(video.content)
+  video.rating = JSON.stringify(video.rating)
+  return video
+}
+
+function parseVideo (video) {
+  video.content = JSON.parse(video.content)
+  video.rating = JSON.parse(video.rating)
+  return video
+}

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 
+import Nav from './Nav'
 import AddFeed from './AddFeed'
 import VideoList from './VideoList'
 import SubscriptionList from './SubscriptionList'
@@ -35,9 +36,9 @@ class App extends React.Component {
 
   render () {
     return (
-      <div className="container" >
+      <div className="container pt-5" >
         <h1>Title - Hi :)</h1>
-        <p>Navigation Buttons</p>
+        <Nav />
         <AddFeed />
         <Switch>
           <Route path='/subs' component={SubscriptionList} />

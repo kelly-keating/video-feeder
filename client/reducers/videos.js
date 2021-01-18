@@ -1,10 +1,10 @@
-import { ADD_VIDEOS, SAVE_ALL_VIDEOS, UPDATE_VIDEOS } from '../actions'
+import { ADD_VIDEOS, SAVE_ALL_DATA, UPDATE_VIDEOS } from '../actions'
 
 function reducer (state = [], action) {
   switch (action.type) {
     case ADD_VIDEOS:
       return [...action.videos, ...state]
-    case SAVE_ALL_VIDEOS:
+    case SAVE_ALL_DATA:
       return action.videos
     case UPDATE_VIDEOS:
       return state.map(video => {

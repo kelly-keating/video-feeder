@@ -7,19 +7,16 @@ import AddFeed from './AddFeed'
 import VideoList from './VideoList'
 import SubscriptionList from './SubscriptionList'
 
-import { getChannelInfo, getVideosAndGroups, refreshFeeds } from '../api'
-import { saveGroups, addVideos, saveAllTheVideos, updateVideos } from '../actions'
+import { getAllData, getChannelInfo, refreshFeeds } from '../api'
+import { saveAllTheData, addVideos, updateVideos } from '../actions'
 
 class App extends React.Component {
   componentDidMount () {      
     // getChannelInfo('UC-7oMv6E4Uz2tF51w5Sj49w')
 
-    getVideosAndGroups()
+    getAllData()
       .then(data => {
-        const {groups, videos} = data
-        this.props.dispatch(saveGroups(groups))
-        this.props.dispatch(saveAllTheVideos(videos))
-        // TODO: update videos in db, re load videos?
+        this.props.dispatch(saveAllTheData(data))      
         this.refreshVideos()
       })
       .catch(err => console.log(err.message))

@@ -1,20 +1,20 @@
-export const SAVE_ONE_GROUP = 'save-da-group'
-export const SAVE_ALL_GROUPS = 'save-all-da-groupz'
+export const ADD_ONE_GROUP = 'save-da-group'
+export const ADD_ONE_SUB = 'the-new-hot-thing'
 export const ADD_VIDEOS = 'add-these-videos'
-export const SAVE_ALL_VIDEOS = 'heres-all-the-videos'
 export const UPDATE_VIDEOS = 'youre-so-old-school'
+export const SAVE_ALL_DATA = 'heres-the-goss'
 
 export function saveOneGroup (group) {
   return {
-    type: SAVE_ONE_GROUP,
+    type: ADD_ONE_GROUP,
     group
   }
 }
 
-export function saveGroups (groups) {
+export function addSub (sub) {
   return {
-    type: SAVE_ALL_GROUPS,
-    groups
+    type: ADD_ONE_SUB,
+    sub
   }
 }
 
@@ -25,16 +25,18 @@ export function addVideos (videos) {
   }
 }
 
-export function saveAllTheVideos (videos) {
-  return {
-    type: SAVE_ALL_VIDEOS,
-    videos
-  }
-}
-
 export function updateVideos (videos) {
   return {
     type: UPDATE_VIDEOS,
     videos
+  }
+}
+
+export function saveAllTheData ({ videos, groups, subs }) {
+  return {
+    type: SAVE_ALL_DATA,
+    videos,
+    groups,
+    subs
   }
 }

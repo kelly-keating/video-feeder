@@ -16,11 +16,11 @@ export function getPlaylistFeed (id) {
 
 // DATABASE INTERACTIONS
 
-export function getVideosAndGroups () {
-  return Promise.all([ getGroups(), getVideos() ])
-    .then(both => {
-      const [groups, videos] = both
-      return { groups, videos }
+export function getAllData () {
+  return Promise.all([ getGroups(), getVideos(), getSubs() ])
+    .then(all => {
+      const [groups, videos, subs] = all
+      return { groups, videos, subs }
     })
 }
 
@@ -40,6 +40,12 @@ export function addGroup (name) {
   return request
     .post('/v1/groups')
     .send({ name })
+    .then(req => req.body)
+}
+
+export function getSubs () {
+  return request
+    .get('/v1/subs')
     .then(req => req.body)
 }
 

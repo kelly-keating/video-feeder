@@ -28,6 +28,13 @@ router.get('/refresh', (req, res) => {
     .catch(err => console.log(err.message))
 })
 
+router.get('/subs', (req, res) => {
+  db.getSubscriptions()
+    .then(subs => subs.map(sub => parseSub(sub)))
+    .then(subs => res.json(subs))
+    .catch(err => res.status(500).json({ err: err.message }))
+})
+
 router.post('/subs', (req, res) => {
   let { subscription, videos } = req.body
 
@@ -82,6 +89,11 @@ function parseVideo (video) {
   video.content = JSON.parse(video.content)
   video.rating = JSON.parse(video.rating)
   return video
+}
+
+function parseSub (sub) {
+  sub.last_updated = JSON.parse(sub.last_updated)
+  return sub
 }
 
 function makeOneArray (arrays) {

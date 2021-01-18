@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { getChannelInfo, addGroup, addSubscription } from '../api'
-import { saveOneGroup, addVideos } from '../actions'
+import { saveOneGroup, addVideos, addSub } from '../actions'
 
 class AddFeed extends React.Component {
   state = {
@@ -90,6 +90,7 @@ class AddFeed extends React.Component {
     addSubscription(subscription, videos)
       .then(() => {
         this.props.dispatch(addVideos(videos))
+        this.props.dispatch(addSub(subscription))
         this.resetState()
       })
       .catch(err => console.log('catch', err.message))

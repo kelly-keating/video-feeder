@@ -1,4 +1,4 @@
-import { ADD_VIDEOS, SAVE_ALL_DATA, UPDATE_VIDEOS } from '../actions'
+import { ADD_VIDEOS, SAVE_ALL_DATA, UPDATE_VIDEOS, REMOVE_VIDEO } from '../actions'
 
 function reducer (state = [], action) {
   switch (action.type) {
@@ -11,6 +11,8 @@ function reducer (state = [], action) {
         const match = action.videos.find(v => v.id === video.id)
         return match ? match : video
       })
+    case REMOVE_VIDEO:
+      return state.filter(video => video.id !== action.id)
     default:
       return state
   }

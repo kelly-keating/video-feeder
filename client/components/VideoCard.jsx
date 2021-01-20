@@ -2,9 +2,18 @@ import moment from 'moment'
 import React from 'react'
 import { connect } from 'react-redux'
 
-function VideoCard ({ video }) {
+import { removeVideo } from '../actions'
+import { deleteVideo } from '../api'
+
+function VideoCard ({ video, dispatch }) {
   const published = moment(video.published)
   const blurb = video.description.split('\n')[0]
+
+  const deleteVid = () => {
+    const {id} = video
+    deleteVideo(id)
+      .then(() => dispatch(removeVideo(id)))
+  }
 
   return (
     <div key={video.id} className="tile is-parent is-3">
@@ -18,6 +27,12 @@ function VideoCard ({ video }) {
           <div className="content">
             {blurb}
           </div>
+          <button onClick={deleteVid} className="button is-danger is-outlined">
+            <span>Delete</span>
+            <span className="icon is-small">
+              <i className="fas fa-times"></i>
+            </span>
+          </button>
         </div>
       </div>
     </div>

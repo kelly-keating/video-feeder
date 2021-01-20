@@ -75,6 +75,12 @@ function updateVideo (id, video) {
     .where('id', id)
 }
 
+function deleteVideo (id) {
+  return db('Videos')
+    .del()
+    .where('id', id)
+}
+
 module.exports = {
   getGroups,
   addGroup,
@@ -90,5 +96,6 @@ module.exports = {
   getVideosByChannel,
   getVideoById,
   addVideos,
-  updateVideo
+  updateVideo,
+  deleteVideo
 }

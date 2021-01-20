@@ -63,6 +63,12 @@ router.get('/videos', (req, res) => {
     .catch(err => res.status(500).json({ err: err.message }))
 })
 
+router.delete('/videos/:id', (req, res) => {
+  db.deleteVideo(req.params.id)
+    .then(deleted => res.json({ deleted }))
+    .catch(err => res.status(500).json({ err: err.message }))
+})
+
 router.get('/groups', (req, res) => {
   db.getGroups()
     .then(groups => res.json(groups))

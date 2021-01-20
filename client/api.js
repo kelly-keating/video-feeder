@@ -30,6 +30,12 @@ export function getVideos () {
     .then(res => res.body)
 }
 
+export function deleteVideo (id) {
+  return request
+    .delete('/v1/videos/' + id)
+    .then(res => res.body)
+}
+
 export function getGroups () {
   return request
     .get('/v1/groups')

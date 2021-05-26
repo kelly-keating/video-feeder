@@ -1,0 +1,19 @@
+@import './variables.scss';
+
+*, html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-base;
+  background-color:$body-bg;
+  color: $text-color;
+  font-size: 16px;
+}
+
+.container {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1100px;
+}

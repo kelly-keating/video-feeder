@@ -3,23 +3,21 @@ import { connect } from 'react-redux'
 
 import VideoCard from './VideoCard'
 
-class VideoList extends React.Component {
+function VideoList ({ videos }) {
 
   renderVideos = () => {
     return (
       <div className="tile is-ancestor">
-        {this.props.videos.map((video, i) => <VideoCard key={i} video={video} />)}
+        {videos.map((video, i) => <VideoCard key={i} video={video} />)}
       </div>
     )
   }
 
-  render () {
-    return (
-      <div className="video-container" >
-        {this.props.videos && this.renderVideos()}
-      </div>
-    )
-  }
+  return (
+    <div className="video-container" >
+      {videos && this.renderVideos()}
+    </div>
+  )
 }
 
 function reduxToProps (state) {

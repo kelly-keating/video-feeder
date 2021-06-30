@@ -5,7 +5,7 @@ import VideoCard from './VideoCard'
 
 function VideoList ({ videos }) {
 
-  renderVideos = () => {
+  const renderVideos = () => {
     return (
       <div className="tile is-ancestor">
         {videos.map((video, i) => <VideoCard key={i} video={video} />)}
@@ -15,7 +15,7 @@ function VideoList ({ videos }) {
 
   return (
     <div className="video-container" >
-      {videos && this.renderVideos()}
+      {videos && renderVideos()}
     </div>
   )
 }

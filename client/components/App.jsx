@@ -1,19 +1,45 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
+import { onAuthStateChanged } from "firebase/auth"
 
 import Nav from './Nav'
 import AddFeed from './AddFeed'
 import VideoList from './VideoList'
 import SubscriptionList from './SubscriptionList'
 
-import { getAllData, getChannelInfo, refreshFeeds } from '../api'
-import { saveAllTheData, addVideos, updateVideos } from '../actions'
+import auth from './firebase/auth'
+import { getAllData, getChannelInfo, refreshFeeds } from '../api/index'
+import { getYoutubeChannel, getYoutubeVideos } from '../api/youtube'
+import { saveAllTheData, addVideos, updateVideos, saveUser, removeUser } from '../actions'
 
-function App () {
+
+function App ({ dispatch }) {
   useEffect(() => {
-    getChannelInfo('UC-7oMv6E4Uz2tF51w5Sj49w')
-      .then(console.log)
+    getYoutubeChannel()
+      .then(data => console.log('Channel:', data))
+      .catch(err => console.log('Error:', err))
+
+    getYoutubeVideos()
+      .then(data => console.log('Videos:', data))
+      .catch(err => console.log('Error:', err))
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        console.log('USER SIGNED IN')
+        dispatch(saveUser(user))
+      } else {
+        // User is signed out
+        console.log('USER SIGNED OUT')
+        dispatch(removeUser())
+      }
+    })
+
+    // getChannelInfo('UC-7oMv6E4Uz2tF51w5Sj49w')
+    //   .then(data => console.log('Data:', data))
+    //   .catch(err => console.log('Error:', err))
 
     // getAllData()
     //   .then(data => {
@@ -40,7 +66,7 @@ function App () {
       <Switch>
         {/* <Route path='/subs' component={SubscriptionList} /> */}
         <Route path='/' component={VideoList} />
-      </Switch> 
+      </Switch>
     </div>
   )
 }

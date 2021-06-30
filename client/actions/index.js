@@ -1,9 +1,24 @@
+export const ADD_USER = 'oh-hello-there'
+export const CLEAR_USER = 'bye-bye'
 export const ADD_ONE_GROUP = 'save-da-group'
 export const ADD_ONE_SUB = 'the-new-hot-thing'
 export const ADD_VIDEOS = 'add-these-videos'
 export const REMOVE_VIDEO = 'and-pooof-its-gone'
 export const UPDATE_VIDEOS = 'youre-so-old-school'
 export const SAVE_ALL_DATA = 'heres-the-goss'
+
+export function saveUser (user) {
+  return {
+    type: ADD_USER,
+    user
+  }
+}
+
+export function removeUser () {
+  return {
+    type: CLEAR_USER
+  }
+}
 
 export function saveOneGroup (group) {
   return {

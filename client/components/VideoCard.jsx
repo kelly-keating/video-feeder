@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { removeVideo } from '../actions'
-import { deleteVideo } from '../api'
+import { deleteVideo } from '../api/index'
 
 function VideoCard ({ video, dispatch }) {
   const published = moment(video.published)

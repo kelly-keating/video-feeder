@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { getChannelInfo, addGroup, addSubscription } from '../api'
+import { getChannelInfo, addGroup, addSubscription } from '../api/index'
 import { saveOneGroup, addVideos, addSub } from '../actions'
 
 class AddFeed extends React.Component {

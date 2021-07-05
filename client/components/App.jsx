@@ -14,7 +14,7 @@ import { getYoutubeChannel, getYoutubeVideos } from '../api/youtube'
 import { saveAllTheData, addVideos, updateVideos, saveUser, removeUser } from '../actions'
 
 
-function App ({ dispatch }) {
+function App ({ dispatch, loggedIn }) {
   useEffect(() => {
     getYoutubeChannel()
       .then(data => console.log('Channel:', data))
@@ -60,15 +60,27 @@ function App ({ dispatch }) {
 
   return (
     <div className="container" >
-      <h1>Title - Hi :)</h1>
       <Nav />
-      {/* <AddFeed /> */}
-      <Switch>
-        {/* <Route path='/subs' component={SubscriptionList} /> */}
-        <Route path='/' component={VideoList} />
-      </Switch>
+      <div className="content" >
+        <h1>Title - Hi :)</h1>
+        { loggedIn ? (
+          /* <AddFeed /> */
+          <Switch>
+            {/* <Route path='/subs' component={SubscriptionList} /> */}
+            <Route path='/' component={VideoList} />
+          </Switch>
+        ) : (
+          <p>Please log in</p>
+        )}
+      </div>
     </div>
   )
 }
 
-export default connect()(App)
+function mapStateToProps (state) {
+  return {
+    loggedIn: Boolean(state.auth)
+  }
+}
+
+export default connect(mapStateToProps)(App)

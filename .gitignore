@@ -10,6 +10,8 @@ node_modules
 # Webpack bundles
 bundle.js
 bundle.js.map
+styles.css
+styles.css.map
 
 # Database files
 dev.sqlite3

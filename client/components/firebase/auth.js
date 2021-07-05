@@ -8,7 +8,7 @@ import {
 const auth = getAuth()
 export default auth
 
-export function register (email, password) {
+export function register (email, password, errFn) {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
@@ -16,14 +16,10 @@ export function register (email, password) {
       console.log('REGISTERED USER:', user)
       return user
     })
-    .catch((error) => {
-      const errorCode = error.code
-      const errorMessage = error.message
-      console.log("REGISTER ERROR:", errorCode, errorMessage)
-    })
+    .catch(({ code }) => errFn(readError(code)))
 }
 
-export function login (email, password) {
+export function login (email, password, errFn) {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
@@ -31,11 +27,7 @@ export function login (email, password) {
       console.log('SIGNED IN USER:', user)
       return user
     })
-    .catch((error) => {
-      const errorCode = error.code
-      const errorMessage = error.message
-      console.log("SIGN IN ERROR:", errorCode, errorMessage)
-    })
+    .catch(({ code }) => errFn(readError(code)))
 }
 
 export function logout () {
@@ -45,4 +37,22 @@ export function logout () {
     }).catch((error) => {
       console.log('LOG OUT ERROR:', error.code, error.message)
     })
+}
+
+function readError (code) {
+  console.log(code)
+  switch (code) {
+    case 'auth/weak-password':
+      return 'Password too weak'
+    case 'auth/email-already-in-use':
+      return 'Email already registered'
+    case 'auth/wrong-password':
+      return 'Password incorrect'
+    case 'auth/user-not-found':
+      return 'Email incorrect'
+    case 'auth/too-many-requests':
+      return 'Too many requests - please try again later'
+    default:
+      return code
+  }
 }

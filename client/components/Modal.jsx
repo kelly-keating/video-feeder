@@ -7,6 +7,7 @@ import { login, register } from './firebase/auth'
 
 function SignInModal ({ close }) {
 
+  const [error, setError] = useState('')
   const [showRegister, setShowRegister] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
@@ -23,15 +24,16 @@ function SignInModal ({ close }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
+    if(error) setError('')
     const fn = showRegister ? register : login
-    console.log(formData)
-    fn(formData.email, formData.password)
+    fn(formData.email, formData.password, setError)
   }
 
   return (
     <div className="modal">
       <section className="modal-main">
         <h2>{showRegister ? 'Register' : 'Log in'}</h2>
+        <p>{error && error}</p>
         <form className='center-form' onSubmit={handleSubmit} >
           { showRegister &&          
           <div className='form-row'>

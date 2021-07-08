@@ -9,10 +9,12 @@ import VideoList from './VideoList'
 import SubscriptionList from './SubscriptionList'
 
 import auth from './firebase/auth'
+// import startDb from './firebase/db'
 import { getAllData, getChannelInfo, refreshFeeds } from '../api/index'
 import { getYoutubeChannel, getYoutubeVideos } from '../api/youtube'
 import { saveAllTheData, addVideos, updateVideos, saveUser, removeUser } from '../actions'
 
+import { getDatabase, ref, child, get } from "firebase/database"
 
 function App ({ dispatch, loggedIn }) {
   useEffect(() => {
@@ -23,6 +25,19 @@ function App ({ dispatch, loggedIn }) {
     getYoutubeVideos()
       .then(data => console.log('Videos:', data))
       .catch(err => console.log('Error:', err))
+
+    // startDb()
+
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `videos`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -49,14 +64,16 @@ function App ({ dispatch, loggedIn }) {
     //   .catch(err => console.log(err.message))
   }, [])     
 
-  // const refreshVideos = () => {
-  //   refreshFeeds()
-  //     .then(videos => {
-  //       this.props.dispatch(addVideos(videos.new))
-  //       this.props.dispatch(updateVideos(videos.updated))
-  //     })
-  //     .catch(err => console.log(err.message))
-  // }
+  /*
+  const refreshVideos = () => {
+    refreshFeeds()
+      .then(videos => {
+        this.props.dispatch(addVideos(videos.new))
+        this.props.dispatch(updateVideos(videos.updated))
+      })
+      .catch(err => console.log(err.message))
+  }
+  */
 
   return (
     <div className="container" >

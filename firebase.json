@@ -20,9 +20,6 @@
     "auth": {
       "port": 8080
     },
-    "functions": {
-      "port": 5001
-    },
     "database": {
       "port": 9000
     },

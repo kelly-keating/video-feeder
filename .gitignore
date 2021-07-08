@@ -18,4 +18,5 @@ dev.sqlite3
 
 # Secrets
 .env
+api.json
 authResponse.js

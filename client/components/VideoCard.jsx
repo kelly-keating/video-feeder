@@ -7,7 +7,7 @@ import { deleteVideo } from '../api/index'
 
 function VideoCard ({ video, dispatch }) {
   const published = moment(video.published)
-  const blurb = video.description.split('\n')[0]
+  const blurb = video.description.split('↵')[0]
 
   const deleteVid = () => {
     const {id} = video
@@ -19,7 +19,7 @@ function VideoCard ({ video, dispatch }) {
     <div key={video.id} className="tile is-parent is-3">
       <div className="card">
         <div className="card-image">
-          <img src={video.thumbnail} className="is-3-tablet" alt="Placeholder image" />
+          <img src={video.thumbnails.medium.url} className="is-3-tablet" alt="Placeholder image" />
         </div>
         <div className="card-content">
           <p className="title is-5">{video.title}</p>

@@ -5,7 +5,7 @@ function reducer (state = [], action) {
     case ADD_VIDEOS:
       return [...action.videos, ...state]
     case SAVE_ALL_DATA:
-      return action.videos
+      return action.videos || state
     case UPDATE_VIDEOS:
       return state.map(video => {
         const match = action.videos.find(v => v.id === video.id)

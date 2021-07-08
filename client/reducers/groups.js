@@ -5,7 +5,7 @@ function reducer (state = [], action) {
     case ADD_ONE_GROUP:
       return [...state, action.group]
     case SAVE_ALL_DATA:
-      return action.groups
+      return action.groups || state
     default:
       return state
   }

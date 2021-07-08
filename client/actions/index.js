@@ -55,6 +55,13 @@ export function removeVideo (id) {
   }
 }
 
+export function saveTheVids ( videos ) {
+  return {
+    type: SAVE_ALL_DATA,
+    videos
+  }
+}
+
 export function saveAllTheData ({ videos, groups, subs }) {
   return {
     type: SAVE_ALL_DATA,

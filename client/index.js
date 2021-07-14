@@ -1,17 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router } from "react-router-dom";
-import { createStore } from 'redux'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 
-import firebase from './components/firebase'
+// eslint-disable-next-line no-unused-vars
+import initializeFirebase from './components/firebase'
 
 import App from './components/App'
 import reducers from './reducers'
 
-const store = createStore(reducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)))
 
 document.addEventListener('DOMContentLoaded', () => {
   render()

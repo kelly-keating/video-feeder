@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import SignIn from './SignIn'
 
@@ -14,9 +15,9 @@ function Nav () {
               Home
             </a>
 
-            <a className="navbar-item">
+            <Link to='/subs' className="navbar-item">
               Subscriptions
-            </a>
+            </Link>
 
             <a className="navbar-item">
               Search

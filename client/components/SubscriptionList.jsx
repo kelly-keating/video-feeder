@@ -1,15 +1,28 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-class SubscriptionList extends React.Component {
+function SubscriptionList ({ groups }) {
 
-  render () {
+  const renderList = (group) => {
     return (
-      <div className="container" >
-        <p>Subscriptions</p>
-      </div>
+      <>
+        <h3>{group}</h3>
+      </>
     )
+  }
+
+  return (
+    <div className="container" >
+      <p>Subscriptions</p>
+      {Object.keys(groups).map(renderList)}
+    </div>
+  )
+}
+
+function mS2P (state) {
+  return {
+    groups: state.groups
   }
 }
 
-export default connect()(SubscriptionList)
+export default connect(mS2P)(SubscriptionList)

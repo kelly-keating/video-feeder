@@ -12,19 +12,19 @@ import auth from './firebase/auth'
 import { startListening } from './firebase/db'
 import { getAllData, getChannelInfo, refreshFeeds } from '../api/index'
 import { getYoutubeChannel, getYoutubeVideos } from '../api/youtube'
-import { saveAllTheData, addVideos, updateVideos, saveUser, removeUser, saveTheVids } from '../actions'
+import { saveAllTheData, addVideos, updateVideos, saveUser, removeUser, saveTheVids, updateDatabase } from '../actions'
 
 // import { getDatabase, ref, child, get } from "firebase/database"
 
 function App ({ dispatch, loggedIn }) {
   useEffect(() => {
-    getYoutubeChannel()
-      .then(data => console.log('Channel:', data))
-      .catch(err => console.log('Error:', err))
+    // getYoutubeChannel()
+    //   .then(data => console.log('Channel:', data))
+    //   .catch(err => console.log('Error:', err))
 
-    getYoutubeVideos()
-      .then(data => console.log('Videos:', data))
-      .catch(err => console.log('Error:', err))
+    // getYoutubeVideos()
+    //   .then(data => console.log('Videos:', data))
+    //   .catch(err => console.log('Error:', err))
 
     startListening((videos) => dispatch(saveTheVids(videos)))
 
@@ -34,6 +34,7 @@ function App ({ dispatch, loggedIn }) {
         // https://firebase.google.com/docs/reference/js/firebase.User
         console.log('USER SIGNED IN')
         dispatch(saveUser(user))
+        dispatch(updateDatabase(user.uid))
       } else {
         // User is signed out
         console.log('USER SIGNED OUT')
@@ -72,7 +73,7 @@ function App ({ dispatch, loggedIn }) {
         { loggedIn ? (
           /* <AddFeed /> */
           <Switch>
-            {/* <Route path='/subs' component={SubscriptionList} /> */}
+            <Route path='/subs' component={SubscriptionList} />
             <Route path='/' component={VideoList} />
           </Switch>
         ) : (

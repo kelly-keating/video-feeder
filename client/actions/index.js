@@ -1,3 +1,5 @@
+import { getUsersChannels } from "../components/firebase/db"
+
 export const ADD_USER = 'oh-hello-there'
 export const CLEAR_USER = 'bye-bye'
 export const ADD_ONE_GROUP = 'save-da-group'
@@ -62,11 +64,29 @@ export function saveTheVids ( videos ) {
   }
 }
 
+export function saveTheGroups ( groups ) {
+  return {
+    type: SAVE_ALL_DATA,
+    groups
+  }
+}
+
 export function saveAllTheData ({ videos, groups, subs }) {
   return {
     type: SAVE_ALL_DATA,
     videos,
     groups,
     subs
+  }
+}
+
+// THUNKS
+
+export function updateDatabase (userId) {
+  return (dispatch) => {
+    getUsersChannels(userId)
+      .then((groups) => {
+        dispatch(saveTheGroups(groups))
+      })
   }
 }

@@ -3,7 +3,7 @@ import { ADD_ONE_GROUP, SAVE_ALL_DATA } from '../actions'
 function reducer (state = [], action) {
   switch (action.type) {
     case ADD_ONE_GROUP:
-      return [...state, action.group]
+      return { ...state, [action.name]: action.data}
     case SAVE_ALL_DATA:
       return action.groups || state
     default:

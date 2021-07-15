@@ -37,4 +37,20 @@ export function getUsersChannels (userId) {
     })
 }
 
+export function getChannelById (id) {
+  console.log('id', id)
+  return get(child(channelsRef, id))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        return snapshot.val()
+      } else {
+        console.log("No data available")
+        return { default: {}}
+      }
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+}
+
 export default db

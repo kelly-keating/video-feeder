@@ -1,4 +1,4 @@
-import { getUsersChannels } from "../components/firebase/db"
+import { getUsersChannels, getChannelById } from "../components/firebase/db"
 
 export const ADD_USER = 'oh-hello-there'
 export const CLEAR_USER = 'bye-bye'
@@ -22,17 +22,17 @@ export function removeUser () {
   }
 }
 
-export function saveOneGroup (group) {
+export function saveOneGroup (name, data) {
   return {
     type: ADD_ONE_GROUP,
-    group
+    name, data
   }
 }
 
-export function addSub (sub) {
+export function addSub (id, data) {
   return {
     type: ADD_ONE_SUB,
-    sub
+    id, data
   }
 }
 
@@ -87,6 +87,13 @@ export function updateDatabase (userId) {
     getUsersChannels(userId)
       .then((groups) => {
         dispatch(saveTheGroups(groups))
+
+        const channelIds = Object.values(groups).map(obj => Object.keys(obj)).flat()
+        channelIds.forEach((c) => getChannelById(c)
+          .then(info => {
+            dispatch(addSub(c, info))
+          })
+        )
       })
   }
 }

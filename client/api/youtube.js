@@ -33,6 +33,7 @@ function formatVideo (vid) {
   return {
     id: videoId,
     publishedAt: videoPublishedAt,
-    title, description, channelId, thumbnails
+    feedId: channelId,
+    title, description, thumbnails
   }
 }

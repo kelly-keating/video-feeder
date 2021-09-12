@@ -5,14 +5,14 @@ import FeedTile from './FeedTile'
 function SubscriptionList ({ groups, feeds }) {
 
   const renderList = (group, idx) => {
-    const channelIds = Object.keys(groups[group])
+    const feedIds = Object.keys(groups[group])
     return (
       <Fragment key={idx}>
         <h3>{group}</h3>
         <ul>
-          {channelIds.map(id => {
-            const chanInfo = feeds?.[id]
-            return <FeedTile key={id} chanInfo={chanInfo} />
+          {feedIds.map(id => {
+            const info = feeds?.[id]
+            return <FeedTile key={id} info={info} />
           })}
         </ul>
       </Fragment>

@@ -43,7 +43,7 @@ function Search ({ videos, feeds }) {
     return <>
       {includeFeeds && <>
         <h3>Subscriptions</h3>
-        {matches.feeds.map(s => <FeedTile chanInfo={s} key={s.id} />)}
+        {matches.feeds.map(s => <FeedTile info={s} key={s.id} />)}
       </>}
       <h3>Videos</h3>
       {matches.videos.map(v => <VideoCard video={v} key={v.id} />)}

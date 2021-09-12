@@ -22,10 +22,9 @@ import { addVid } from '../components/firebase/db'
 export function refreshFeeds(userId, uploadLinks, lastUpdated) {
   const isNew = (d) => (d - lastUpdated) > 0
 
-  console.log(uploadLinks)
   return Promise.all(uploadLinks.map(getYoutubeVideos))
     .then(allLinks => allLinks.flat())
-    // .then(vids => vids.filter(vid => isNew(vid)))
+    .then(vids => vids.filter(vid => isNew(vid)))
     .then(newVids => newVids.map(vid => addVid(userId, vid.id, vid)))
-    .then(Promise.all)
+    .then(arr => arr.length ? Promise.all(arr) : Promise.resolve('No new vids'))
 }

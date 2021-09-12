@@ -22,12 +22,12 @@ export function startListening (userId, userFn, groupFn, feedFn, vidFn) {
 
 export function setUpdated (userId) {
   const userRef = ref(db, `${userId}/user/lastUpdated`)
-  set(userRef, Date.now())
+  return set(userRef, Date.now())
 }
 
 export function addVid (userId, id, video) {
   const videoRef = ref(db, `${userId}/videos/${id}`)
-  set(videoRef, video)
+  return set(videoRef, video)
 }
 
 export default db

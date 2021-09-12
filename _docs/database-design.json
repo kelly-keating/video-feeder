@@ -1,59 +1,57 @@
 {
-  "channels": {
-    "UCxO_ya-RmAXCXJCU54AxYFw": {
-      "id": "UCxO_ya-RmAXCXJCU54AxYFw",
-      "title": "New Frame Plus",
-      "description": "New Frame Plus is a series about video game animation, created by Daniel Floyd (professional animator and co-creator of Extra Credits). If you came here hoping to nerd out about the animation in video games, then you've come to the RIGHT PLACE.",
-      "customUrl": "newframeplus",
-      "thumbnails": {
-        "default": {
-          "url": "https://yt3.ggpht.com/ytc/AAUvwnjvRBJ9bH8HDZSYL1RZaXwR6Sjami70JOqEY4MJ=s88-c-k-c0x00ffffff-no-rj",
-          "width": 88,
-          "height": 88
-        },
-        "medium": {
-          "url": "https://yt3.ggpht.com/ytc/AAUvwnjvRBJ9bH8HDZSYL1RZaXwR6Sjami70JOqEY4MJ=s240-c-k-c0x00ffffff-no-rj",
-          "width": 240,
-          "height": 240
-        },
-        "high": {
-          "url": "https://yt3.ggpht.com/ytc/AAUvwnjvRBJ9bH8HDZSYL1RZaXwR6Sjami70JOqEY4MJ=s800-c-k-c0x00ffffff-no-rj",
-          "width": 800,
-          "height": 800
-        }
-      },
-      "uploadsId": "UUxO_ya-RmAXCXJCU54AxYFw",
-      "videos": {
-        "GxCcHOvSVJQ": true
-      },
-      "users": {
-        "Fdygr7FwPQPmuEKruWJkTowLJW53": true
-      }
-    }
-  },
-  "videos": {
-    "GxCcHOvSVJQ": {
-      "id": "GxCcHOvSVJQ",
-      "title": "The Animation of Sonic Games",
-      "description": "Which Sonic games have the best animation? Which have the worst? What makes for good animation in a Sonic game to begin with? Join me on this retrospective journey through ALL of them and let's find out. TAKE MY LEAD, I'LL SET YOU FREE.   ↵---- (More  Below)↵↵Support New Frame Plus on Patreon!↵http://www.patreon.com/newframeplus ↵↵↵Written and produced by Daniel Floyd↵↵Special thanks to:↵-Carrie Floyd↵-Soraya Een Hajji↵-Jocat↵↵__________↵↵Follow me on Twitter (@DanFloydPlus): https://twitter.com/DanFloydPlus↵↵For more games (and animation geekery), check out our other channel, PlayFrame! http://bit.ly/2lmGte8↵↵___________↵↵♪ \"Tropical Resort\" by Hyper Potions↵https://www.youtube.com/watch?v=CaEpCuu0WMM↵↵♪ ...and selections from the Sonic game series official soundtracks.↵↵___________↵↵↵Table of Contents:↵↵0:00 - Intro↵↵1:35 - Ground Rules↵↵2:39 - Sonic the Hedgehog↵↵6:44 - Sonic the Hedgehog (8-bit)↵↵7:50 - Sonic the Hedgehog 2 (8-bit)↵↵8:43 - Sonic the Hedgehog 2↵↵11:01 - Sonic CD↵↵13:50 - Sonic Chaos↵↵14:26 - Sonic the Hedgehog 3↵↵16:42 - Sonic & Knuckles↵↵18:08 - Knuckles' Chaotix↵↵20:36 - What Makes Good Animation in a Sonic Game?↵↵22:43 - Sonic 3D Blast↵↵26:59 - Sonic Adventure↵↵34:09 - Sonic Adventure 2↵↵41:57 - The Mascot Suit Problem↵↵44:26 - Sonic Heroes↵↵48:49 - Shadow the Hedgehog↵↵53:10 - Sonic the Hedgehog (2006)↵↵59:52 - Sonic and the Secret Rings↵↵1:03:37 - Sonic Unleashed↵↵1:09:00 - Sonic and the Black Knight↵↵1:13:02 - Sonic the Hedgehog 4↵↵1:18:42 - Sonic Colors↵↵1:21:29 - Sonic Generations↵↵1:25:01 - Sonic Lost World↵↵1:27:54 - Sonic Boom: Rise of Lyric↵↵1:31:03 - Sonic Mania↵↵1:34:18 - Sonic Forces↵↵1:37:13 - In Conclusion↵↵1:40:12 - Thoughts for the Future↵↵1:44:00 - Wrapping Up↵↵↵↵↵↵↵#Sonic #SonictheHedgehog #animation",
-      "channelId": "UCxO_ya-RmAXCXJCU54AxYFw",
-      "publishedAt": "2021-03-02T16:50:12Z",
-      "thumbnails": {
-        "default": { "url": "https://i.ytimg.com/vi/GxCcHOvSVJQ/default.jpg", "width": 120, "height": 90 },
-        "high": { "url": "https://i.ytimg.com/vi/GxCcHOvSVJQ/hqdefault.jpg", "width": 480, "height": 360 },
-        "maxres": { "url": "https://i.ytimg.com/vi/GxCcHOvSVJQ/maxresdefault.jpg", "width": 1280, "height": 720 },
-        "medium": { "url": "https://i.ytimg.com/vi/GxCcHOvSVJQ/mqdefault.jpg", "width": 320, "height": 180 },
-        "standard": { "url": "https://i.ytimg.com/vi/GxCcHOvSVJQ/sddefault.jpg", "width": 640, "height": 480 }
-      }
-    }
-  },
-  "users": {
-    "Fdygr7FwPQPmuEKruWJkTowLJW53": {
+  "Fdygr7FwPQPmuEKruWJkTowLJW53": {
+    "user": {
       "id": "Fdygr7FwPQPmuEKruWJkTowLJW53",
       "name": "KK",
-      "groups": {
-        "default": {
-          "UCxO_ya-RmAXCXJCU54AxYFw": true
+      "lastUpdated": 1631411778197
+    },
+    "groups": {
+      "default": {
+        "UCxO_ya-RmAXCXJCU54AxYFw": true
+      }
+    },
+    "channels": {
+      "UCxO_ya-RmAXCXJCU54AxYFw": {
+        "id": "UCxO_ya-RmAXCXJCU54AxYFw",
+        "title": "New Frame Plus",
+        "description": "New Frame Plus is a series about video game animation, created by Daniel Floyd (professional animator and co-creator of Extra Credits). If you came here hoping to nerd out about the animation in video games, then you've come to the RIGHT PLACE.",
+        "customUrl": "newframeplus",
+        "thumbnails": {
+          "default": {
+            "url": "https://yt3.ggpht.com/ytc/AAUvwnjvRBJ9bH8HDZSYL1RZaXwR6Sjami70JOqEY4MJ=s88-c-k-c0x00ffffff-no-rj",
+            "width": 88,
+            "height": 88
+          },
+          "medium": {
+            "url": "https://yt3.ggpht.com/ytc/AAUvwnjvRBJ9bH8HDZSYL1RZaXwR6Sjami70JOqEY4MJ=s240-c-k-c0x00ffffff-no-rj",
+            "width": 240,
+            "height": 240
+          },
+          "high": {
+            "url": "https://yt3.ggpht.com/ytc/AAUvwnjvRBJ9bH8HDZSYL1RZaXwR6Sjami70JOqEY4MJ=s800-c-k-c0x00ffffff-no-rj",
+            "width": 800,
+            "height": 800
+          }
+        },
+        "uploadsId": "UUxO_ya-RmAXCXJCU54AxYFw",
+        "videos": {
+          "GxCcHOvSVJQ": true
+        }
+      }
+    },
+    "videos": {
+      "GxCcHOvSVJQ": {
+        "id": "GxCcHOvSVJQ",
+        "title": "The Animation of Sonic Games",
+        "description": "Which Sonic games have the best animation? Which have the worst? What makes for good animation in a Sonic game to begin with? Join me on this retrospective journey through ALL of them and let's find out. TAKE MY LEAD, I'LL SET YOU FREE.   ↵---- (More  Below)↵↵Support New Frame Plus on Patreon!↵http://www.patreon.com/newframeplus ↵↵↵Written and produced by Daniel Floyd↵↵Special thanks to:↵-Carrie Floyd↵-Soraya Een Hajji↵-Jocat↵↵__________↵↵Follow me on Twitter (@DanFloydPlus): https://twitter.com/DanFloydPlus↵↵For more games (and animation geekery), check out our other channel, PlayFrame! http://bit.ly/2lmGte8↵↵___________↵↵♪ \"Tropical Resort\" by Hyper Potions↵https://www.youtube.com/watch?v=CaEpCuu0WMM↵↵♪ ...and selections from the Sonic game series official soundtracks.↵↵___________↵↵↵Table of Contents:↵↵0:00 - Intro↵↵1:35 - Ground Rules↵↵2:39 - Sonic the Hedgehog↵↵6:44 - Sonic the Hedgehog (8-bit)↵↵7:50 - Sonic the Hedgehog 2 (8-bit)↵↵8:43 - Sonic the Hedgehog 2↵↵11:01 - Sonic CD↵↵13:50 - Sonic Chaos↵↵14:26 - Sonic the Hedgehog 3↵↵16:42 - Sonic & Knuckles↵↵18:08 - Knuckles' Chaotix↵↵20:36 - What Makes Good Animation in a Sonic Game?↵↵22:43 - Sonic 3D Blast↵↵26:59 - Sonic Adventure↵↵34:09 - Sonic Adventure 2↵↵41:57 - The Mascot Suit Problem↵↵44:26 - Sonic Heroes↵↵48:49 - Shadow the Hedgehog↵↵53:10 - Sonic the Hedgehog (2006)↵↵59:52 - Sonic and the Secret Rings↵↵1:03:37 - Sonic Unleashed↵↵1:09:00 - Sonic and the Black Knight↵↵1:13:02 - Sonic the Hedgehog 4↵↵1:18:42 - Sonic Colors↵↵1:21:29 - Sonic Generations↵↵1:25:01 - Sonic Lost World↵↵1:27:54 - Sonic Boom: Rise of Lyric↵↵1:31:03 - Sonic Mania↵↵1:34:18 - Sonic Forces↵↵1:37:13 - In Conclusion↵↵1:40:12 - Thoughts for the Future↵↵1:44:00 - Wrapping Up↵↵↵↵↵↵↵#Sonic #SonictheHedgehog #animation",
+        "channelId": "UCxO_ya-RmAXCXJCU54AxYFw",
+        "publishedAt": "2021-03-02T16:50:12Z",
+        "thumbnails": {
+          "default": { "url": "https://i.ytimg.com/vi/GxCcHOvSVJQ/default.jpg", "width": 120, "height": 90 },
+          "high": { "url": "https://i.ytimg.com/vi/GxCcHOvSVJQ/hqdefault.jpg", "width": 480, "height": 360 },
+          "maxres": { "url": "https://i.ytimg.com/vi/GxCcHOvSVJQ/maxresdefault.jpg", "width": 1280, "height": 720 },
+          "medium": { "url": "https://i.ytimg.com/vi/GxCcHOvSVJQ/mqdefault.jpg", "width": 320, "height": 180 },
+          "standard": { "url": "https://i.ytimg.com/vi/GxCcHOvSVJQ/sddefault.jpg", "width": 640, "height": 480 }
         }
       }
     }

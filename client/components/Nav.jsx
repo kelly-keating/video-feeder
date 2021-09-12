@@ -11,17 +11,17 @@ function Nav () {
 
         <div className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item">
+            <Link to='/' className="navbar-item">
               Home
-            </a>
+            </Link>
 
             <Link to='/subs' className="navbar-item">
               Subscriptions
             </Link>
 
-            <a className="navbar-item">
+            <Link to='/search' className="navbar-item">
               Search
-            </a>
+            </Link>
           </div>
 
           <div className="navbar-end">

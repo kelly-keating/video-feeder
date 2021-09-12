@@ -1,56 +1,33 @@
 import { 
   getDatabase, 
   ref, 
-  onValue, 
-  child, 
-  get  
+  onValue,
+  set  
 } from "firebase/database"
 
 const db = getDatabase()
-
 const dbRef = ref(db)
-const vidsRef = ref(db, 'videos')
-const usersRef = ref(db, 'users')
-const channelsRef = ref(db, 'channels')
 
-export function startListening (fn) {
-  onValue(vidsRef, (snapshot) => {
-    const data = snapshot.val()
-    console.log('DATA:', data)
-    
-    fn(data)
-  })
+export function startListening (userId, userFn, groupFn, subFn, vidFn) {
+  const userRef = ref(db, `${userId}/user`)
+  const groupsRef = ref(db, `${userId}/groups`)
+  const subsRef = ref(db, `${userId}/channels`) // TODO: channels >> subs in db
+  const vidsRef = ref(db, `${userId}/videos`)
+
+  onValue(userRef, (snapshot) => userFn(snapshot.val()))
+  onValue(groupsRef, (snapshot) => groupFn(snapshot.val()))
+  onValue(subsRef, (snapshot) => subFn(snapshot.val()))
+  onValue(vidsRef, (snapshot) => vidFn(snapshot.val()))
 }
 
-export function getUsersChannels (userId) {
-  return get(child(dbRef, `users/${userId}/groups`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        return snapshot.val()
-      } else {
-        console.log("No data available")
-        return { default: {}}
-      }
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+export function setUpdated (userId) {
+  const userRef = ref(db, `${userId}/user/lastUpdated`)
+  set(userRef, Date.now())
 }
 
-export function getChannelById (id) {
-  console.log('id', id)
-  return get(child(channelsRef, id))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        return snapshot.val()
-      } else {
-        console.log("No data available")
-        return { default: {}}
-      }
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+export function addVid (userId, id, video) {
+  const videoRef = ref(db, `${userId}/videos/${id}`)
+  set(videoRef, video)
 }
 
 export default db

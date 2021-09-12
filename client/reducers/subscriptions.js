@@ -1,11 +1,11 @@
-import { ADD_ONE_SUB, SAVE_ALL_DATA } from '../actions'
+import { SAVE_SUBS } from '../actions'
 
-function reducer (state = [], action) {
+function reducer (state = {}, action) {
   switch (action.type) {
-    case ADD_ONE_SUB:
-      return { ...state, [action.id]: action.data }
-    case SAVE_ALL_DATA:
-      return action.subs || state
+    // case ADD_ONE_SUB:
+    //   return { ...state, [action.id]: action.data }
+    case SAVE_SUBS:
+      return action.subs
     default:
       return state
   }

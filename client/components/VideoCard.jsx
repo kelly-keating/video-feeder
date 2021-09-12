@@ -2,19 +2,21 @@ import moment from 'moment'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { removeVideo } from '../actions'
-import { deleteVideo } from '../api/index'
+// import { removeVideo } from '../actions'
+// import { deleteVideo } from '../api/index'
 
 function VideoCard ({ video, dispatch }) {
-  const published = moment(video.published)
-  const blurb = video.description?.split('↵')[0]
+  const published = moment(video.publishedAt)
+  const desc = video.description?.split('↵')[0]
+  const blurb = (desc.length > 50) ? desc.substring(0, 50) + '...' : desc
 
   const deleteVid = () => {
-    const {id} = video
-    deleteVideo(id)
-      .then(() => dispatch(removeVideo(id)))
+    // TODO: del from firebase
+    // const { id } = video
+    // deleteVideo(id)
+    //   .then(() => dispatch(removeVideo(id)))
   }
-
+  
   return (
     <div key={video.id} className="tile is-parent is-3">
       <div className="card">

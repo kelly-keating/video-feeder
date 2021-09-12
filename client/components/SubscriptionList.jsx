@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
+import SubTile from './SubTile'
 
 function SubscriptionList ({ groups, subs }) {
 
@@ -11,10 +12,7 @@ function SubscriptionList ({ groups, subs }) {
         <ul>
           {channelIds.map(id => {
             const chanInfo = subs?.[id]
-            return <div key={`${idx}-${id}`} >
-              <h4>{chanInfo?.title}</h4>
-              <img src={chanInfo?.thumbnails.default.url} />
-            </div>
+            return <SubTile key={id} chanInfo={chanInfo} />
           })}
         </ul>
       </Fragment>

@@ -1,11 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { firebaseConfig } from './firebase'
-
 import VideoCard from './VideoCard'
 
-function VideoList ({ videos }) {
+// import { setUpdated } from './firebase/db'
+import { refreshFeeds } from '../api'
+
+function VideoList ({ videos, uploadLinks, lastUpdated, uid }) {
+
+  const refreshVids = () => {
+    refreshFeeds(uid, uploadLinks, lastUpdated)
+    // setUpdated(uid)
+  }
 
   const renderVideos = () => {
     return (
@@ -15,9 +21,11 @@ function VideoList ({ videos }) {
     )
   }
 
+  const d = new Date(lastUpdated)
   return (
     <div className="video-container" >
-      <button onClick={() => console.log('boop')}>Refresh</button>
+      <button onClick={refreshVids}>Refresh</button>
+      Last Updated - {d.getHours()}:{d.getMinutes()}:{d.getSeconds()} ({d.getDate()}/{d.getMonth() + 1}/{d.getFullYear()})
       {videos.length ? renderVideos() : <p>You have nothing left to watch!</p>}
     </div>
   )
@@ -26,7 +34,10 @@ function VideoList ({ videos }) {
 function reduxToProps (state) {
   const sortedVids = Object.values(state.videos).sort((a, b) =>  new Date(b.publishedAt) - new Date(a.publishedAt))
   return {
-    videos: sortedVids
+    videos: sortedVids,
+    uploadLinks: Object.values(state.subscriptions).map(data => data.uploadsId),
+    lastUpdated: state.auth.user?.lastUpdated,
+    uid: state.auth.uid
   }
 }
 

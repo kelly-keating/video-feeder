@@ -1,11 +1,11 @@
-import { ADD_ONE_GROUP, SAVE_ALL_DATA } from '../actions'
+import { SAVE_GROUPS } from '../actions'
 
-function reducer (state = [], action) {
+function reducer (state = {}, action) {
   switch (action.type) {
-    case ADD_ONE_GROUP:
-      return { ...state, [action.name]: action.data}
-    case SAVE_ALL_DATA:
-      return action.groups || state
+    // case ADD_ONE_GROUP:
+    //   return { ...state, [action.name]: action.data}
+    case SAVE_GROUPS:
+      return action.groups
     default:
       return state
   }

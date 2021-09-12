@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import SubTile from './SubTile'
+import FeedTile from './FeedTile'
 
-function SubscriptionList ({ groups, subs }) {
+function SubscriptionList ({ groups, feeds }) {
 
   const renderList = (group, idx) => {
     const channelIds = Object.keys(groups[group])
@@ -11,8 +11,8 @@ function SubscriptionList ({ groups, subs }) {
         <h3>{group}</h3>
         <ul>
           {channelIds.map(id => {
-            const chanInfo = subs?.[id]
-            return <SubTile key={id} chanInfo={chanInfo} />
+            const chanInfo = feeds?.[id]
+            return <FeedTile key={id} chanInfo={chanInfo} />
           })}
         </ul>
       </Fragment>
@@ -30,7 +30,7 @@ function SubscriptionList ({ groups, subs }) {
 function mS2P (state) {
   return {
     groups: state.groups,
-    subs: state.subscriptions
+    feeds: state.feeds
   }
 }
 

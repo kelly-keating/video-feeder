@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import SubTile from './SubTile'
+import FeedTile from './FeedTile'
 
 import VideoCard from './VideoCard'
 
-function Search ({ videos, subscriptions }) {
+function Search ({ videos, feeds }) {
 
   const [formData, setFormData] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [matchCase, setMatchCase] = useState(false)
-  const [includeSubs, setIncludeSubs] = useState(false)
+  const [includeFeeds, setIncludeFeeds] = useState(false)
   const [includeDescription, setIncludeDescription] = useState(false)
 
   const handleTyping = (e) => {
@@ -27,8 +27,8 @@ function Search ({ videos, subscriptions }) {
     const compare = (str) => (matchCase ? str : str.toLowerCase()).includes(searchStr)
 
     matches.videos = videos.filter(v => compare(v.title))
-    if(includeSubs) {
-      matches.subs = subscriptions.filter(sub => compare(sub.title))
+    if(includeFeeds) {
+      matches.feeds = feeds.filter(feed => compare(feed.title))
     }
     if (includeDescription) {
       matches.descs = videos.filter(v => {
@@ -41,9 +41,9 @@ function Search ({ videos, subscriptions }) {
     }
 
     return <>
-      {includeSubs && <>
+      {includeFeeds && <>
         <h3>Subscriptions</h3>
-        {matches.subs.map(s => <SubTile chanInfo={s} key={s.id} />)}
+        {matches.feeds.map(s => <FeedTile chanInfo={s} key={s.id} />)}
       </>}
       <h3>Videos</h3>
       {matches.videos.map(v => <VideoCard video={v} key={v.id} />)}
@@ -55,7 +55,7 @@ function Search ({ videos, subscriptions }) {
     const funcs = {
       matchCase: setMatchCase,
       includeDescription: setIncludeDescription,
-      includeSubs: setIncludeSubs
+      includeFeeds: setIncludeFeeds
     } 
     funcs[evt.target.name](evt.target.checked)
   }
@@ -69,8 +69,8 @@ function Search ({ videos, subscriptions }) {
         <button>Search</button>
         <label htmlFor='matchCase'>Match search case:</label>
         <input type='checkbox' name='matchCase' checked={matchCase} onChange={handleCheck} />
-        <label htmlFor='includeSubs'>Search subscriptions:</label>
-        <input type='checkbox' name='includeSubs' checked={includeSubs} onChange={handleCheck} />
+        <label htmlFor='includeFeeds'>Search subscriptions:</label>
+        <input type='checkbox' name='includeFeeds' checked={includeFeeds} onChange={handleCheck} />
         <label htmlFor='includeDescription'>Search video descriptions:</label>
         <input type='checkbox' name='includeDescription' checked={includeDescription} onChange={handleCheck} />
       </form>
@@ -82,7 +82,7 @@ function Search ({ videos, subscriptions }) {
 function reduxToProps (state) {
   return {
     videos: Object.values(state.videos).sort((a, b) =>  new Date(b.publishedAt) - new Date(a.publishedAt)),
-    subscriptions: Object.values(state.subscriptions)
+    feeds: Object.values(state.feeds)
   }
 }
 

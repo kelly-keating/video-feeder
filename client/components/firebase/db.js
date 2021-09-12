@@ -8,15 +8,15 @@ import {
 const db = getDatabase()
 const dbRef = ref(db)
 
-export function startListening (userId, userFn, groupFn, subFn, vidFn) {
+export function startListening (userId, userFn, groupFn, feedFn, vidFn) {
   const userRef = ref(db, `${userId}/user`)
   const groupsRef = ref(db, `${userId}/groups`)
-  const subsRef = ref(db, `${userId}/channels`) // TODO: channels >> subs in db
+  const feedsRef = ref(db, `${userId}/feeds`)
   const vidsRef = ref(db, `${userId}/videos`)
 
   onValue(userRef, (snapshot) => userFn(snapshot.val()))
   onValue(groupsRef, (snapshot) => groupFn(snapshot.val()))
-  onValue(subsRef, (snapshot) => subFn(snapshot.val()))
+  onValue(feedsRef, (snapshot) => feedFn(snapshot.val()))
   onValue(vidsRef, (snapshot) => vidFn(snapshot.val()))
 }
 

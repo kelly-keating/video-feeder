@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SubTile ({ chanInfo }) {
+function FeedTile ({ chanInfo }) {
   return (
     <div>
       <h4>{chanInfo?.title}</h4>
@@ -9,4 +9,4 @@ function SubTile ({ chanInfo }) {
   )
 }
 
-export default SubTile
+export default FeedTile

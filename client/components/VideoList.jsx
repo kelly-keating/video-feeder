@@ -35,7 +35,7 @@ function reduxToProps (state) {
   const sortedVids = Object.values(state.videos).sort((a, b) =>  new Date(b.publishedAt) - new Date(a.publishedAt))
   return {
     videos: sortedVids,
-    uploadLinks: Object.values(state.subscriptions).map(data => data.uploadsId),
+    uploadLinks: Object.values(state.feeds).map(data => data.uploadsId),
     lastUpdated: state.auth.user?.lastUpdated,
     uid: state.auth.uid
   }

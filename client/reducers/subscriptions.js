@@ -1,11 +1,11 @@
-import { SAVE_SUBS } from '../actions'
+import { SAVE_FEEDS } from '../actions'
 
 function reducer (state = {}, action) {
   switch (action.type) {
-    // case ADD_ONE_SUB:
+    // case ADD_ONE_FEED:
     //   return { ...state, [action.id]: action.data }
-    case SAVE_SUBS:
-      return action.subs
+    case SAVE_FEEDS:
+      return action.feeds
     default:
       return state
   }

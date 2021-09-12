@@ -2,13 +2,13 @@ export const ADD_AUTH = 'oh-hello-there'
 export const CLEAR_AUTH = 'bye-bye'
 export const SAVE_USER = 'got-your-deets'
 // export const ADD_ONE_GROUP = 'save-da-group'
-// export const ADD_ONE_SUB = 'the-new-hot-thing'
+// export const ADD_ONE_FEED = 'the-new-hot-thing'
 // export const ADD_VIDEOS = 'add-these-videos'
 // export const REMOVE_VIDEO = 'and-pooof-its-gone'
 export const UPDATE_VIDEOS = 'youre-so-old-school'
 // export const SAVE_ALL_DATA = 'heres-the-goss'
 export const SAVE_GROUPS = 'groups-groups-groups'
-export const SAVE_SUBS = 'look-at-all-these'
+export const SAVE_FEEDS = 'look-at-all-these'
 export const SAVE_VIDS = 'heres-the-goss'
 
 export function saveAuth (auth) {
@@ -38,9 +38,9 @@ export function saveUser (user) {
 //   }
 // }
 
-// export function addSub (id, data) {
+// export function addFeed (id, data) {
 //   return {
-//     type: ADD_ONE_SUB,
+//     type: ADD_ONE_FEED,
 //     id, data
 //   }
 // }
@@ -73,10 +73,10 @@ export function saveTheVids ( videos ) {
   }
 }
 
-export function saveTheSubs ( subs ) {
+export function saveTheFeeds ( feeds ) {
   return {
-    type: SAVE_SUBS,
-    subs
+    type: SAVE_FEEDS,
+    feeds
   }
 }
 

@@ -7,7 +7,7 @@ import SignIn from './SignIn'
 function Nav () {
     return (
       <nav className="navbar" >
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/SEGA_logo.svg" max-width="112" max-height="28" />
+        <img src="/icon-white.png" className="navbar-logo" />
 
         <div className="navbar-menu">
           <div className="navbar-start">

@@ -8,12 +8,13 @@ import AddFeed from './AddFeed'
 import VideoList from './VideoList'
 import SubscriptionList from './SubscriptionList'
 import Search from './Search'
+import FeedDetails from './FeedDetails'
 
 import auth from './firebase/auth'
 import { startListening } from './firebase/db'
 import { saveAuth, removeAuth, saveUser, saveTheVids, saveTheGroups, saveTheFeeds } from '../actions'
 
-function App ({ dispatch, loggedIn }) {
+function App ({ dispatch, loggedIn, tokenStuff }) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -25,6 +26,7 @@ function App ({ dispatch, loggedIn }) {
         dispatch(removeAuth())
       }
     })
+    // watch()
   }, [])  
   
   const startDb = (uid) => {
@@ -32,7 +34,7 @@ function App ({ dispatch, loggedIn }) {
     const groupFn = (groups) => dispatch(saveTheGroups(groups))
     const feedFn = (feeds) => dispatch(saveTheFeeds(feeds))
     const vidFn = (videos) => dispatch(saveTheVids(videos))
-    startListening(uid, userFn, groupFn, feedFn, vidFn)
+    startListening(userFn, groupFn, feedFn, vidFn)
   }
 
   return (
@@ -42,8 +44,9 @@ function App ({ dispatch, loggedIn }) {
         <h1>Title - Hi :)</h1>
         { loggedIn ? (
           <>
-            <AddFeed />
+            <Route path='/' component={AddFeed} />
             <Switch>
+              <Route path='/feeds/:id' component={FeedDetails} />
               <Route path='/search' component={Search} />
               <Route path='/subs' component={SubscriptionList} />
               <Route path='/' component={VideoList} />

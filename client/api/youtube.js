@@ -23,7 +23,7 @@ function formatChannel (channel) {
   const { uploads } = channel.contentDetails.relatedPlaylists
   return { 
     id: channel.id, 
-    title, description, customUrl, thumbnails, uploads 
+    title, description, customUrl, thumbnails, uploads
   }
 }
 

@@ -2,31 +2,25 @@ import {
   getAuth, 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword,
-  signOut 
+  signOut
 } from "firebase/auth"
 
 const auth = getAuth()
 export default auth
 
+export function getUserId () {
+  return auth.currentUser?.uid
+}
+
 export function register (email, password, errFn) {
   return createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user
-      console.log('REGISTERED USER:', user)
-      return user
-    })
+    .then((userCredential) => userCredential.user)
     .catch(({ code }) => errFn(readError(code)))
 }
 
 export function login (email, password, errFn) {
   return signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user
-      console.log('SIGNED IN USER:', user)
-      return user
-    })
+    .then((userCredential) => userCredential.user)
     .catch(({ code }) => errFn(readError(code)))
 }
 

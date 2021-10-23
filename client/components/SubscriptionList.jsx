@@ -9,12 +9,12 @@ function SubscriptionList ({ groups, feeds }) {
     return (
       <Fragment key={idx}>
         <h3>{group}</h3>
-        <ul>
+        <div className="subs-group grid">
           {feedIds.map(id => {
             const info = feeds?.[id]
             return <FeedTile key={id} info={info} />
           })}
-        </ul>
+        </div>
       </Fragment>
     )
   }

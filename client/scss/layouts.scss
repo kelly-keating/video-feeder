@@ -18,6 +18,11 @@ body {
   max-width: 1100px;
 }
 
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .modal {
   position: fixed;
   top: 0;

@@ -1,5 +1,5 @@
 import { getYoutubeVideos } from "./youtube"
-import { addFeed, addVid, saveFeedToGroup, setUpdated } from '../components/firebase/db'
+import { addFeed, addVid, saveFeedToGroup, setUpdated } from './firebase/db'
 
 export function refreshFeeds(uploadLinks, lastUpdated) {
   const isNew = (d) => new Date(d) > new Date(lastUpdated)

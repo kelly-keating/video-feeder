@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
 // eslint-disable-next-line no-unused-vars
-import initializeFirebase from './components/firebase'
+import initializeFirebase from './api/firebase'
 
 import App from './components/App'
 import reducers from './reducers'

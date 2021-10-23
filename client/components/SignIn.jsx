@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Modal from './Modal'
 
-import { logout } from './firebase/auth'
+import { logout } from '../api/firebase/auth'
 
 function SignIn ({ auth }) {
   const [showModal, setModal] = useState(false)

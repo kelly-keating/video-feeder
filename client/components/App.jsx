@@ -10,8 +10,8 @@ import SubscriptionList from './SubscriptionList'
 import Search from './Search'
 import FeedDetails from './FeedDetails'
 
-import auth from './firebase/auth'
-import { startListening } from './firebase/db'
+import auth from '../api/firebase/auth'
+import { startListening } from '../api/firebase/db'
 import { saveAuth, removeAuth, saveUser, saveTheVids, saveTheGroups, saveTheFeeds } from '../actions'
 
 function App ({ dispatch, loggedIn, tokenStuff }) {

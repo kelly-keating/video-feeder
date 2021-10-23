@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { login, register } from './firebase/auth'
+import { login, register } from '../api/firebase/auth'
 
 // ----------
 // TODO: temp modal, AddFeed contains styled modal

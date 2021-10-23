@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import VideoCard from './VideoCard'
 
-// import { setUpdated } from './firebase/db'
 import { refreshFeeds } from '../api'
 
 function VideoList ({ videos, uploadLinks, lastUpdated, uid }) {

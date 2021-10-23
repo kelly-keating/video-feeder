@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyChsyFJj3pRZ_mtIc-iVtWp61jxdFrCYxo',
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: 'feeder-312704.firebaseapp.com',
   databaseURL: 'https://feeder-312704-68586.europe-west1.firebasedatabase.app',
   projectId: 'youtube-feeder-312704',

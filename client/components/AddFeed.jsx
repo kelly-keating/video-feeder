@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 
 import { saveNewFeed } from '../api'
 import { getYoutubeChannel } from '../api/youtube'
-import { addGroup } from './firebase/db'
+import { addGroup } from '../api/firebase/db'
 
 function AddFeed ({ history, groups }) {
-  const [showModal, setShowModal] = useState(true)
+  const [showModal, setShowModal] = useState(false)
   const [feedUrl, setFeedUrl] = useState('')
   const [feedData, setFeedData] = useState(null)
   const [loadingFeed, setLoadingFeed] = useState(false)

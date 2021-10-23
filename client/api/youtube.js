@@ -1,8 +1,7 @@
 import request from 'superagent'
 
 const YOUTUBE_API = 'https://www.googleapis.com/youtube/v3'
-// const API_KEY = TODO: implement .env
-const API_KEY = require('./api.json').yt_key
+const API_KEY = process.env.YOUTUBE_KEY
 
 export function getYoutubeChannel (id = 'UC-7oMv6E4Uz2tF51w5Sj49w') {
   return request

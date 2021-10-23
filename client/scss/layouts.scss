@@ -24,6 +24,12 @@ body {
   justify-content: center;
 }
 
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .modal {
   position: fixed;
   top: 0;

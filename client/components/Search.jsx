@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import FeedTile from './FeedTile'
 
-import VideoCard from './VideoCard'
+import FeedTile from './FeedTile'
+import VideoListItem from './VideoListItem'
 
 function Search ({ videos, feeds }) {
 
   const [formData, setFormData] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [matchCase, setMatchCase] = useState(false)
+  const [includeTitle, setIncludeTitle] = useState(true)
   const [includeFeeds, setIncludeFeeds] = useState(false)
   const [includeDescription, setIncludeDescription] = useState(false)
-
+  
   const handleTyping = (e) => {
     setFormData(e.target.value)
   }
@@ -26,7 +27,9 @@ function Search ({ videos, feeds }) {
     const searchStr = matchCase ? searchTerm : searchTerm.toLowerCase()
     const compare = (str) => (matchCase ? str : str.toLowerCase()).includes(searchStr)
 
-    matches.videos = videos.filter(v => compare(v.title))
+    if(includeTitle) {
+      matches.videos = videos.filter(v => compare(v.title))
+    }
     if(includeFeeds) {
       matches.feeds = feeds.filter(feed => compare(feed.title))
     }
@@ -43,17 +46,22 @@ function Search ({ videos, feeds }) {
     return <>
       {includeFeeds && <>
         <h3>Subscriptions</h3>
-        {matches.feeds.map(s => <FeedTile info={s} key={s.id} />)}
+        <div className='grid'>
+          {matches.feeds.map(s => <FeedTile info={s} key={s.id} />)}
+        </div>
       </>}
-      <h3>Videos</h3>
-      {matches.videos.map(v => <VideoCard video={v} key={v.id} />)}
-      {includeDescription && matches.descs.map(v => <VideoCard video={v} key={v.id} />)}
+      {(includeTitle || includeDescription) && <h3>Videos</h3>}
+      <div>
+        {includeTitle && matches.videos.map(v => <VideoListItem video={v} key={v.id} />)}
+        {includeDescription && matches.descs.map(v => <VideoListItem video={v} key={v.id} />)}
+      </div>
     </>
   }
 
   const handleCheck = (evt) => {
     const funcs = {
       matchCase: setMatchCase,
+      includeTitle: setIncludeTitle,
       includeDescription: setIncludeDescription,
       includeFeeds: setIncludeFeeds
     } 
@@ -67,11 +75,13 @@ function Search ({ videos, feeds }) {
         <label htmlFor=''>Search Term:</label>
         <input type='text' name='search' value={formData} onChange={handleTyping} />
         <button>Search</button>
-        <label htmlFor='matchCase'>Match search case:</label>
+        <label htmlFor='matchCase'>Match case</label>
         <input type='checkbox' name='matchCase' checked={matchCase} onChange={handleCheck} />
-        <label htmlFor='includeFeeds'>Search subscriptions:</label>
+        <label htmlFor='includeTitle'>Title</label>
+        <input type='checkbox' name='includeTitle' checked={includeTitle} onChange={handleCheck} />
+        <label htmlFor='includeFeeds'>Author</label>
         <input type='checkbox' name='includeFeeds' checked={includeFeeds} onChange={handleCheck} />
-        <label htmlFor='includeDescription'>Search video descriptions:</label>
+        <label htmlFor='includeDescription'>Description</label>
         <input type='checkbox' name='includeDescription' checked={includeDescription} onChange={handleCheck} />
       </form>
       {searchTerm ? renderResults() : <p>Search a thing bish!</p>}

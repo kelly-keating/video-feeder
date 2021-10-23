@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 // import { removeVideo } from '../actions'
-// import { deleteVideo } from '../api/index'
+import { delVideo } from '../api/firebase/db'
 
 function VideoCard ({ video, dispatch }) {
   const published = moment(video.publishedAt)
@@ -11,10 +11,8 @@ function VideoCard ({ video, dispatch }) {
   const blurb = (desc.length > 50) ? desc.substring(0, 50) + '...' : desc
 
   const deleteVid = () => {
-    // TODO: del from firebase
-    // const { id } = video
-    // deleteVideo(id)
-    //   .then(() => dispatch(removeVideo(id)))
+    const { id } = video
+    delVideo(id)
   }
   
   return (

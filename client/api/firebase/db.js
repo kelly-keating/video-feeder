@@ -1,4 +1,4 @@
-import { getDatabase, ref, onValue, set } from "firebase/database"
+import { getDatabase, ref, onValue, set, remove } from "firebase/database"
 
 import { getUserId } from './auth'
 
@@ -50,4 +50,9 @@ export function addFeed (id, data) {
 export function addVid (id, video) {
   const videoRef = ref(db, `${getUserId()}/videos/${id}`)
   return set(videoRef, video)
+}
+
+export function delVideo (id) {
+  const videoRef = ref(db, `${getUserId()}/videos/${id}`)
+  return remove(videoRef)
 }

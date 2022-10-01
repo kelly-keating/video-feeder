@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { FeedTile, VideoListItem } from './utils'
-import VideoList from './VideoList'
+import { FeedGrid, VideoList } from './utils'
 
 function Search () {
   const videos = useSelector(redux =>  Object.values(redux.videos).sort((a, b) =>  new Date(b.publishedAt) - new Date(a.publishedAt)))
@@ -50,13 +49,8 @@ function Search () {
     if(includeDescription) vidResults.push(...matches.descs)
 
     return <>
-      {includeFeeds && <>
-        <h3>Subscriptions</h3>
-        <div className='grid'>
-          {matches.feeds.map(s => <FeedTile info={s} key={s.id} />)}
-        </div>
-      </>}
-      {vidResults.length ? <VideoList title='videos' videos={vidResults} /> : null}
+      {includeFeeds ? <FeedGrid feeds={matches.feeds} title='Subscriptions' /> : null}
+      {vidResults.length ? <VideoList title='videos' videos={vidResults} /> : <h3>No video results</h3>}
     </>
   }
 

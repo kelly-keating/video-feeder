@@ -8,12 +8,13 @@ import FeedDetails from './FeedDetails'
 import Nav from './Nav'
 import Search from './Search'
 import SignIn from './SignIn'
-import SubscriptionList from './SubscriptionList'
-import VideoList from './VideoList'
+import Subscriptions from './Subscriptions'
+import Videos from './Videos'
 
 import auth from '../api/firebase/auth'
 import { startListening } from '../api/firebase/db'
 import { saveAuth, removeAuth, saveUser, saveTheVids, saveTheGroups, saveTheFeeds, hideModal } from '../actions'
+import { search } from '../api/youtube'
 
 function App () {
   const dispatch = useDispatch()
@@ -49,15 +50,16 @@ function App () {
   return (
     <div className="container" >
       <Nav />
+      <button onClick={search}>Search</button>
       {currentModal === 'register' && <SignIn />}
       <div className="content" >
-        <h1>Title - Hi :)</h1>
+        <h1>RSS FEEDER</h1>
         { loggedIn ? (
           <>
             {currentModal === 'add' && <AddFeed />}
             <Routes>
-              <Route path='/' element={<VideoList />} />
-              <Route path='/subs' element={<SubscriptionList />} />
+              <Route path='/' element={<Videos />} />
+              <Route path='/subs' element={<Subscriptions />} />
               <Route path='/search' element={<Search />} />
               <Route path='/feeds/:id' element={<FeedDetails />} />
             </Routes>

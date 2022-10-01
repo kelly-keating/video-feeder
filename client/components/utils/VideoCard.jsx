@@ -1,5 +1,6 @@
 import moment from 'moment'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { delVideo } from '../../api/firebase/db'
 
@@ -11,22 +12,24 @@ function VideoCard ({ video }) {
   return (
     <div key={video.id} className="tile is-parent is-3">
       <div className="card">
-        <div className="card-image">
-          <img src={video.thumbnails?.medium.url} className="is-3-tablet" alt="Placeholder image" />
-        </div>
-        <div className="card-content">
-          <p className="title is-5">{video.title}</p>
-          <p className="subtitle is-6">{video.channelTitle}</p>
-          <p className="subtitle is-6">{published}</p>
-          <div className="content">
-            {blurb}
-          </div>
+        <div>
+          <h4 className="title is-5">{video.title}</h4>
           <button onClick={() => delVideo(video.id)} className="button is-danger is-outlined">
             <span>Delete</span>
             <span className="icon is-small">
               <i className="fas fa-times"></i>
             </span>
           </button>
+        </div>
+        <div className="card-image">
+          <img src={video.thumbnails?.medium.url} className="is-3-tablet" alt="Placeholder image" />
+        </div>
+        <div className="card-content">
+          <p className="subtitle is-6"><Link to={'/feeds/' + video.feedId}>{video.channelTitle || 'Channel'}</Link></p>
+          <p className="subtitle is-6">{published}</p>
+          <div className="content">
+            {blurb}
+          </div>
         </div>
       </div>
     </div>

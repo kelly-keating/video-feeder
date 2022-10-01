@@ -1,14 +1,13 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-// TODO: FEED GRID util
-function FeedTile ({ info }) {
+function FeedTile ({ feed }) {
   const goTo = useNavigate()
   
   return (
-    <div onClick={() => goTo(`/feeds/${info.id}`)}>
-      <h4>{info?.title}</h4>
-      <img src={info?.thumbnails.default.url} />
+    <div onClick={() => goTo(`/feeds/${feed.id}`)}>
+      <h4>{feed.title}</h4>
+      <img src={feed.thumbnails.default.url} />
     </div>
   )
 }

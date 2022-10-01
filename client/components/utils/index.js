@@ -1,5 +1,7 @@
 import ConfirmationButton from "./ConfirmationButton"
+import Modal from "./Modal"
 
 export {
-  ConfirmationButton
+  ConfirmationButton,
+  Modal,
 }

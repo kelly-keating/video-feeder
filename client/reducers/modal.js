@@ -1,11 +1,11 @@
 import { SHOW_MODAL, CLOSE_MODAL } from '../actions'
 
-function reducer (state = false, action) {
+function reducer (state = null, action) {
   switch (action.type) {
     case SHOW_MODAL:
-      return true
+      return action.payload
     case CLOSE_MODAL:
-      return false
+      return null
     default:
       return state
   }

@@ -1,42 +1,51 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import SignIn from './SignIn'
-
 import { openModal } from '../actions'
+import { logout } from '../api/firebase/auth'
 
-function Nav () {
+function Nav() {
   const dispatch = useDispatch()
-  const openAdd = () => dispatch(openModal())
+  const auth = useSelector(redux => redux.auth)
+  
+  const showModal = (type) => dispatch(openModal(type))
 
   return (
-    <nav className="navbar" >
+    <nav className="navbar">
       <img src="/icon-white.png" className="navbar-logo" />
 
       <div className="navbar-menu">
         <div className="navbar-start">
-          <Link to='/' className="navbar-item">
+          <Link to="/" className="navbar-item">
             Home
           </Link>
 
-          <Link to='/subs' className="navbar-item">
+          <Link to="/subs" className="navbar-item">
             Subscriptions
           </Link>
 
-          <Link to='/search' className="navbar-item">
+          <Link to="/search" className="navbar-item">
             Search
           </Link>
         </div>
 
         <div className="navbar-end">
-          <a className="navbar-item" onClick={openAdd}>
+          <button className="navbar-item button" onClick={() => showModal('add')}>
             Add new
-          </a>
+          </button>
 
           <div className="navbar-item">
             <div className="buttons">
-              <SignIn />
+              {auth ? (
+                <button className="button" onClick={logout}>
+                  Log Out
+                </button>
+              ) : (
+                <button className="button" onClick={() => showModal('register')}>
+                  Log In
+                </button>
+              )}
             </div>
           </div>
         </div>

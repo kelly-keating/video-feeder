@@ -3,22 +3,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { onAuthStateChanged } from "firebase/auth"
 
-import Nav from './Nav'
 import AddFeed from './AddFeed'
-import VideoList from './VideoList'
-import SubscriptionList from './SubscriptionList'
-import Search from './Search'
-import FeedDetails from './FeedDetails'
 import Bubbles from './Bubbles'
+import FeedDetails from './FeedDetails'
+import Nav from './Nav'
+import Search from './Search'
+import SignIn from './SignIn'
+import SubscriptionList from './SubscriptionList'
+import VideoList from './VideoList'
 
 import auth from '../api/firebase/auth'
 import { startListening } from '../api/firebase/db'
-import { saveAuth, removeAuth, saveUser, saveTheVids, saveTheGroups, saveTheFeeds } from '../actions'
+import { saveAuth, removeAuth, saveUser, saveTheVids, saveTheGroups, saveTheFeeds, hideModal } from '../actions'
 
 function App () {
   const dispatch = useDispatch()
-  const showModal = useSelector(redux => redux.modal)
+  const currentModal = useSelector(redux => redux.modal)
   const loggedIn = useSelector(redux => Boolean(redux.auth))
+
+  useEffect(() => {
+    dispatch(hideModal())
+  }, [loggedIn])
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -32,7 +37,7 @@ function App () {
       }
     })
     // watch()
-  }, [])  
+  }, [])
   
   const startDb = () => {
     const userFn = (user) => dispatch(saveUser(user))
@@ -45,11 +50,12 @@ function App () {
   return (
     <div className="container" >
       <Nav />
+      {currentModal === 'register' && <SignIn />}
       <div className="content" >
         <h1>Title - Hi :)</h1>
         { loggedIn ? (
           <>
-            {showModal && <AddFeed />}
+            {currentModal === 'add' && <AddFeed />}
             <Routes>
               <Route path='/' element={<VideoList />} />
               <Route path='/subs' element={<SubscriptionList />} />

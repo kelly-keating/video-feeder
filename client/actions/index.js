@@ -53,9 +53,10 @@ export function saveTheGroups ( groups ) {
   }
 }
 
-export function openModal () {
+export function openModal (payload) {
   return {
-    type: SHOW_MODAL
+    type: SHOW_MODAL,
+    payload
   }
 }
 

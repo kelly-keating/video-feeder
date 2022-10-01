@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import VideoCard from './VideoCard'
 
 import { refreshFeeds } from '../api'
 
-function VideoList ({ videos, uploadLinks, lastUpdated, uid }) {
+function VideoList () {
+  const videos = useSelector(redux => Object.values(redux.videos).sort((a, b) =>  new Date(b.publishedAt) - new Date(a.publishedAt)))
+  const uploadLinks = useSelector(redux => Object.values(redux.feeds).map(feed => feed.uploads))
+  const lastUpdated = useSelector(redux => redux.auth.user?.lastUpdated)
   const [loading, setLoading] = useState(false)
 
   const refreshVids = () => {
@@ -32,14 +35,4 @@ function VideoList ({ videos, uploadLinks, lastUpdated, uid }) {
   )
 }
 
-function reduxToProps (state) {
-  const sortedVids = Object.values(state.videos).sort((a, b) =>  new Date(b.publishedAt) - new Date(a.publishedAt))
-  return {
-    videos: sortedVids,
-    uploadLinks: Object.values(state.feeds).map(data => data.uploads),
-    lastUpdated: state.auth.user?.lastUpdated,
-    uid: state.auth.uid
-  }
-}
-
-export default connect(reduxToProps)(VideoList)
+export default VideoList

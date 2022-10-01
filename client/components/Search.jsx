@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import FeedTile from './FeedTile'
 import VideoListItem from './VideoListItem'
 
-function Search ({ videos, feeds }) {
+function Search () {
+  const videos = useSelector(redux =>  Object.values(redux.videos).sort((a, b) =>  new Date(b.publishedAt) - new Date(a.publishedAt)))
+  const feeds = useSelector(redux => Object.values(redux.feeds))
 
   const [formData, setFormData] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
@@ -89,11 +91,4 @@ function Search ({ videos, feeds }) {
   )
 }
 
-function reduxToProps (state) {
-  return {
-    videos: Object.values(state.videos).sort((a, b) =>  new Date(b.publishedAt) - new Date(a.publishedAt)),
-    feeds: Object.values(state.feeds)
-  }
-}
-
-export default connect(reduxToProps)(Search)
+export default Search

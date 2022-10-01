@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
+
 import FeedTile from './FeedTile'
 
-function SubscriptionList ({ groups, feeds }) {
+function SubscriptionList () {
+  const feeds = useSelector(redux => redux.feeds)
+  const groups = useSelector(redux => redux.groups)
 
   const renderList = (group, idx) => {
     const feedIds = Object.keys(groups[group])
@@ -27,11 +30,4 @@ function SubscriptionList ({ groups, feeds }) {
   )
 }
 
-function mS2P (state) {
-  return {
-    groups: state.groups,
-    feeds: state.feeds
-  }
-}
-
-export default connect(mS2P)(SubscriptionList)
+export default SubscriptionList

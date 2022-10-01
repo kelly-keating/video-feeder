@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import Modal from './Modal'
 
 import { logout } from '../api/firebase/auth'
 
-function SignIn ({ auth }) {
+function SignIn () {
+  const auth = useSelector(redux => redux.auth)
   const [showModal, setModal] = useState(false)
 
   useEffect(() => {
@@ -24,10 +25,4 @@ function SignIn ({ auth }) {
   )
 }
 
-function mapStateToProps ({ auth }) {
-  return {
-    auth
-  }
-}
-
-export default connect(mapStateToProps)(SignIn)
+export default SignIn

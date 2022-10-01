@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { onAuthStateChanged } from "firebase/auth"
 
@@ -15,13 +15,17 @@ import auth from '../api/firebase/auth'
 import { startListening } from '../api/firebase/db'
 import { saveAuth, removeAuth, saveUser, saveTheVids, saveTheGroups, saveTheFeeds } from '../actions'
 
-function App ({ dispatch, loggedIn, showModal }) {
+function App () {
+  const dispatch = useDispatch()
+  const showModal = useSelector(redux => redux.modal)
+  const loggedIn = useSelector(redux => Boolean(redux.auth))
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('USER SIGNED IN')
         dispatch(saveAuth(user))
-        startDb(user.uid)
+        startDb()
       } else {
         console.log('USER SIGNED OUT')
         dispatch(removeAuth())
@@ -30,7 +34,7 @@ function App ({ dispatch, loggedIn, showModal }) {
     // watch()
   }, [])  
   
-  const startDb = (uid) => {
+  const startDb = () => {
     const userFn = (user) => dispatch(saveUser(user))
     const groupFn = (groups) => dispatch(saveTheGroups(groups))
     const feedFn = (feeds) => dispatch(saveTheFeeds(feeds))
@@ -47,10 +51,10 @@ function App ({ dispatch, loggedIn, showModal }) {
           <>
             {showModal && <AddFeed />}
             <Routes>
-              <Route path='/feeds/:id' element={<FeedDetails />} />
-              <Route path='/search' element={<Search />} />
-              <Route path='/subs' element={<SubscriptionList />} />
               <Route path='/' element={<VideoList />} />
+              <Route path='/subs' element={<SubscriptionList />} />
+              <Route path='/search' element={<Search />} />
+              <Route path='/feeds/:id' element={<FeedDetails />} />
             </Routes>
             <Bubbles />
           </>
@@ -62,11 +66,4 @@ function App ({ dispatch, loggedIn, showModal }) {
   )
 }
 
-function mapStateToProps (state) {
-  return {
-    loggedIn: Boolean(state.auth),
-    showModal: state.modal
-  }
-}
-
-export default connect(mapStateToProps)(App)
+export default App

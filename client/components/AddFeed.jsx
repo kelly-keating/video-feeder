@@ -1,18 +1,23 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import { saveNewFeed } from '../api'
 import { getYoutubeChannel } from '../api/youtube'
 import { addGroup } from '../api/firebase/db'
 import { hideModal } from '../actions'
 
-function AddFeed ({ history, groups, dispatch }) {
-  const [feedUrl, setFeedUrl] = useState('')
+function AddFeed () {
+  const [feedUrl, setFeedUrl] = useState('UCSHtaUm-FjUps090S7crO4Q')
   const [feedData, setFeedData] = useState(null)
   const [loadingFeed, setLoadingFeed] = useState(false)
   const [showNewGroup, setShowNewGroup] = useState(false)
   const [newGroup, setNewGroup] = useState('')
   const [currentGroups, setCurrentGroups] = useState([])
+
+  const goTo = useNavigate()
+  const dispatch = useDispatch()
+  const groups = useSelector(redux => Object.keys(redux.groups))
 
   // TODO: what if they choose a new feed while it's open?
 
@@ -46,7 +51,7 @@ function AddFeed ({ history, groups, dispatch }) {
     saveNewFeed(feedData, currentGroups)
       .then(() => {
         closeModal()
-        history.push('/feeds/' + feedData.id)
+        goTo('/feeds/' + feedData.id)
       })
   }
 
@@ -129,10 +134,4 @@ function AddFeed ({ history, groups, dispatch }) {
   )
 }
 
-function reduxToProps (state) {
-  return {
-    groups: Object.keys(state.groups)
-  }
-}
-
-export default connect(reduxToProps)(AddFeed)
+export default AddFeed

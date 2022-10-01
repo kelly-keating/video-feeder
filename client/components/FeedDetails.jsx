@@ -1,11 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-function FeedDetails ({ match }) {
-  const id = match.params.id
+function FeedDetails () {
+  const { id } = useParams()
   const feed = useSelector((state) => state.feeds[id])
-
-  console.log(feed)
   
   return (
     <div>

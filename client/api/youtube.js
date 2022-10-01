@@ -21,10 +21,12 @@ export function getYoutubeVideos (id = 'UUxO_ya-RmAXCXJCU54AxYFw') {
 function formatChannel (channel) {
   const { title, description, customUrl, thumbnails } = channel.snippet
   const { uploads } = channel.contentDetails.relatedPlaylists
-  return { 
+  const channelObj = { 
     id: channel.id, 
-    title, description, customUrl, thumbnails, uploads
+    title, description, thumbnails, uploads
   }
+  if(customUrl) channelObj.customUrl = customUrl
+  return channelObj
 }
 
 function formatVideo (vid) {

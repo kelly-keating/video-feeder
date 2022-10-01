@@ -1,7 +1,8 @@
 import request from 'superagent'
+import { apiKey } from './firebase'
 
 const YOUTUBE_API = 'https://www.googleapis.com/youtube/v3'
-const API_KEY = process.env.YOUTUBE_KEY
+const API_KEY = apiKey
 
 export function getYoutubeChannel (id = 'UC-7oMv6E4Uz2tF51w5Sj49w') {
   return request

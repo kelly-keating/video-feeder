@@ -6,10 +6,11 @@ export const SAVE_USER = 'got-your-deets'
 // export const ADD_VIDEOS = 'add-these-videos'
 // export const REMOVE_VIDEO = 'and-pooof-its-gone'
 export const UPDATE_VIDEOS = 'youre-so-old-school'
-// export const SAVE_ALL_DATA = 'heres-the-goss'
 export const SAVE_GROUPS = 'groups-groups-groups'
 export const SAVE_FEEDS = 'look-at-all-these'
 export const SAVE_VIDS = 'heres-the-goss'
+export const SHOW_MODAL = 'look-at-this'
+export const CLOSE_MODAL = 'dont-look-at-this'
 
 export function saveAuth (auth) {
   return {
@@ -31,41 +32,6 @@ export function saveUser (user) {
   }
 }
 
-// export function saveOneGroup (name, data) {
-//   return {
-//     type: ADD_ONE_GROUP,
-//     name, data
-//   }
-// }
-
-// export function addFeed (id, data) {
-//   return {
-//     type: ADD_ONE_FEED,
-//     id, data
-//   }
-// }
-
-// export function addVideos (videos) {
-//   return {
-//     type: ADD_VIDEOS,
-//     videos
-//   }
-// }
-
-// export function updateVideos (videos) {
-//   return {
-//     type: UPDATE_VIDEOS,
-//     videos
-//   }
-// }
-
-// export function removeVideo (id) {
-//   return {
-//     type: REMOVE_VIDEO,
-//     id
-//   }
-// }
-
 export function saveTheVids ( videos ) {
   return {
     type: SAVE_VIDS,
@@ -84,5 +50,17 @@ export function saveTheGroups ( groups ) {
   return {
     type: SAVE_GROUPS,
     groups
+  }
+}
+
+export function openModal () {
+  return {
+    type: SHOW_MODAL
+  }
+}
+
+export function hideModal () {
+  return {
+    type: CLOSE_MODAL
   }
 }

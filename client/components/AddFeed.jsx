@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { saveNewFeed } from '../api'
 import { getYoutubeChannel } from '../api/youtube'
 import { addGroup } from '../api/firebase/db'
+import { hideModal } from '../actions'
 
-function AddFeed ({ history, groups }) {
-  const [showModal, setShowModal] = useState(false)
+function AddFeed ({ history, groups, dispatch }) {
   const [feedUrl, setFeedUrl] = useState('')
   const [feedData, setFeedData] = useState(null)
   const [loadingFeed, setLoadingFeed] = useState(false)
@@ -16,13 +16,12 @@ function AddFeed ({ history, groups }) {
 
   // TODO: what if they choose a new feed while it's open?
 
-  const openModal = () => setShowModal(true)
   const closeModal = () => {
-    setShowModal(false)
     setLoadingFeed(false)
     setShowNewGroup(false)
     setNewGroup('')
     setCurrentGroups([])
+    dispatch(hideModal())
   }
   const showAddGroup = () => setShowNewGroup(true)
   const closeNewGroup = () => setShowNewGroup(false)
@@ -104,7 +103,7 @@ function AddFeed ({ history, groups }) {
     </form>
   )
 
-  const renderModal = () => (
+  return (
     <div className="modal">
       <div className="modal-background" onClick={closeModal} />
       <div className="modal-main">
@@ -128,13 +127,6 @@ function AddFeed ({ history, groups }) {
       </div>
     </div>
   )
-
-  return <>
-    <button onClick={openModal}>
-      Add Feed
-    </button>
-    {showModal && renderModal()}
-  </>
 }
 
 function reduxToProps (state) {

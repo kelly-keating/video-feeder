@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Crete+Round&family=Lato:wght@300;400;700&display=swap');
 
-@import './layouts.scss';
 @import './typography.scss';
-@import './forms.scss';
-@import './navbar.scss';
+
+@import './layouts/general.scss';
+@import './layouts/forms.scss';
+@import './layouts/cards.scss';
+@import './layouts/navbar.scss';
+@import './layouts/bubbles.scss';
 
 
 // Assmt List

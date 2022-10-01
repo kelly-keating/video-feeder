@@ -9,12 +9,13 @@ import VideoList from './VideoList'
 import SubscriptionList from './SubscriptionList'
 import Search from './Search'
 import FeedDetails from './FeedDetails'
+import Bubbles from './Bubbles'
 
 import auth from '../api/firebase/auth'
 import { startListening } from '../api/firebase/db'
 import { saveAuth, removeAuth, saveUser, saveTheVids, saveTheGroups, saveTheFeeds } from '../actions'
 
-function App ({ dispatch, loggedIn, tokenStuff }) {
+function App ({ dispatch, loggedIn, showModal }) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -44,13 +45,14 @@ function App ({ dispatch, loggedIn, tokenStuff }) {
         <h1>Title - Hi :)</h1>
         { loggedIn ? (
           <>
-            <Route path='/' component={AddFeed} />
+            {showModal && <AddFeed />}
             <Switch>
               <Route path='/feeds/:id' component={FeedDetails} />
               <Route path='/search' component={Search} />
               <Route path='/subs' component={SubscriptionList} />
               <Route path='/' component={VideoList} />
             </Switch>
+            <Bubbles />
           </>
         ) : (
           <p>Please log in</p>
@@ -62,7 +64,8 @@ function App ({ dispatch, loggedIn, tokenStuff }) {
 
 function mapStateToProps (state) {
   return {
-    loggedIn: Boolean(state.auth)
+    loggedIn: Boolean(state.auth),
+    showModal: state.modal
   }
 }
 

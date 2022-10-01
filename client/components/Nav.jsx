@@ -1,43 +1,48 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import SignIn from './SignIn'
 
+import { openModal } from '../actions'
+
 function Nav () {
-    return (
-      <nav className="navbar" >
-        <img src="/icon-white.png" className="navbar-logo" />
+  const dispatch = useDispatch()
+  const openAdd = () => dispatch(openModal())
 
-        <div className="navbar-menu">
-          <div className="navbar-start">
-            <Link to='/' className="navbar-item">
-              Home
-            </Link>
+  return (
+    <nav className="navbar" >
+      <img src="/icon-white.png" className="navbar-logo" />
 
-            <Link to='/subs' className="navbar-item">
-              Subscriptions
-            </Link>
+      <div className="navbar-menu">
+        <div className="navbar-start">
+          <Link to='/' className="navbar-item">
+            Home
+          </Link>
 
-            <Link to='/search' className="navbar-item">
-              Search
-            </Link>
-          </div>
+          <Link to='/subs' className="navbar-item">
+            Subscriptions
+          </Link>
 
-          <div className="navbar-end">
-            <a className="navbar-item">
-              Add new
-            </a>
+          <Link to='/search' className="navbar-item">
+            Search
+          </Link>
+        </div>
 
-            <div className="navbar-item">
-              <div className="buttons">
-                <SignIn />
-              </div>
+        <div className="navbar-end">
+          <a className="navbar-item" onClick={openAdd}>
+            Add new
+          </a>
+
+          <div className="navbar-item">
+            <div className="buttons">
+              <SignIn />
             </div>
           </div>
         </div>
-      </nav>
-    )
+      </div>
+    </nav>
+  )
 }
 
-export default connect()(Nav)
+export default Nav

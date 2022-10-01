@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+// TODO: FEED GRID util
 function FeedTile ({ info }) {
   const goTo = useNavigate()
   

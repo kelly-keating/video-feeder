@@ -31,11 +31,11 @@ function formatChannel (channel) {
 
 function formatVideo (vid) {
   const { videoId, videoPublishedAt } = vid.contentDetails
-  const { title, description, channelId, thumbnails } = vid.snippet
+  const { title, description, channelId, thumbnails, channelTitle } = vid.snippet
   return {
     id: videoId,
     publishedAt: videoPublishedAt,
     feedId: channelId,
-    title, description, thumbnails
+    title, description, thumbnails, channelTitle
   }
 }

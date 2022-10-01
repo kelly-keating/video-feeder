@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import FeedTile from './FeedTile'
-import VideoListItem from './VideoListItem'
+import { FeedTile, VideoListItem } from './utils'
+import VideoList from './VideoList'
 
 function Search () {
   const videos = useSelector(redux =>  Object.values(redux.videos).sort((a, b) =>  new Date(b.publishedAt) - new Date(a.publishedAt)))
@@ -39,11 +39,15 @@ function Search () {
       matches.descs = videos.filter(v => {
         const isMatch = compare(v.description)
         if (!isMatch) return false
-        const alreadyFound = matches.videos.find(foundVid => foundVid.id === v.id)
+        const alreadyFound = matches.videos?.find(foundVid => foundVid.id === v.id)
         if (alreadyFound) return false
         return true
       })
     }
+
+    const vidResults = []
+    if(includeTitle) vidResults.push(...matches.videos)
+    if(includeDescription) vidResults.push(...matches.descs)
 
     return <>
       {includeFeeds && <>
@@ -52,11 +56,7 @@ function Search () {
           {matches.feeds.map(s => <FeedTile info={s} key={s.id} />)}
         </div>
       </>}
-      {(includeTitle || includeDescription) && <h3>Videos</h3>}
-      <div>
-        {includeTitle && matches.videos.map(v => <VideoListItem video={v} key={v.id} />)}
-        {includeDescription && matches.descs.map(v => <VideoListItem video={v} key={v.id} />)}
-      </div>
+      {vidResults.length ? <VideoList title='videos' videos={vidResults} /> : null}
     </>
   }
 

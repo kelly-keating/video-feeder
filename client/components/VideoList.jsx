@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import VideoCard from './VideoCard'
+import { VideoGrid } from './utils'
 
 import { refreshFeeds } from '../api'
 
@@ -10,27 +10,20 @@ function VideoList () {
   const uploadLinks = useSelector(redux => Object.values(redux.feeds).map(feed => feed.uploads))
   const lastUpdated = useSelector(redux => redux.auth.user?.lastUpdated)
   const [loading, setLoading] = useState(false)
-
+  
   const refreshVids = () => {
     setLoading(true)
     refreshFeeds(uploadLinks, lastUpdated)
-      .then(() => setLoading(false))
-  }
-
-  const renderVideos = () => {
-    return (
-      <div className="tile-container grid">
-        {videos.map((video, i) => <VideoCard key={i} video={video} />)}
-      </div>
-    )
+    .then(() => setLoading(false))
   }
 
   const d = new Date(lastUpdated)
+
   return (
     <div className="video-container" >
       <button onClick={refreshVids} disabled={loading}>Refresh</button>
       Last Updated - {d.getHours()}:{d.getMinutes()}:{d.getSeconds()} ({d.getDate()}/{d.getMonth() + 1}/{d.getFullYear()})
-      {videos.length ? renderVideos() : <p>You have nothing left to watch!</p>}
+      {videos.length ? <VideoGrid videos={videos} /> : <p>You have nothing left to watch!</p>}
     </div>
   )
 }

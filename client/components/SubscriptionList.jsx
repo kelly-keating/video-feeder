@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
 import { useSelector } from 'react-redux'
 
-import FeedTile from './FeedTile'
-import { ConfirmationButton } from './utils'
+import { ConfirmationButton, FeedTile } from './utils'
 
 import { deleteGroup } from '../api/firebase/db'
 

@@ -22,6 +22,7 @@ export function saveNewFeed(data, groups) {
 }
 
 export function removeFeed(feed) {
+  if(!feed.groups) return deleteFeed(feed.id)
   const groups = Object.keys(feed.groups)
   return deleteFeed(feed.id)
     .then(() => groups.map(g => deleteFeedFromGroup(feed.id, g)))

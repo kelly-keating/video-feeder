@@ -16,18 +16,23 @@ function FeedDetails () {
       .then(() => goTo('/'))
   }
 
-  return (
+  return !feed ? (
+    <p>loading</p>
+  ) : (
     <div>
-      <h4>Feed Deets - {id}</h4>
-      <p>{feed?.title}</p>
-      <ConfirmationButton
-        mainText='Remove feed'
-        confirmText='Unsubscribe'
-        successFunc={unsubscribe}
-      />
       <img 
-        src={feed?.thumbnails.high.url} 
+        src={feed.thumbnails.high.url} 
       />
+      <div>
+        <p>{feed.title}</p>
+        <p><a href={`https://www.youtube.com/channel/${feed.id}`} target='_blank' >link</a></p>
+        <ConfirmationButton
+          mainText='Remove feed?'
+          confirmText='Unsubscribe'
+          successFunc={unsubscribe}
+        />
+        <p>{feed.description}</p>
+      </div>
     </div>
   )
 }

@@ -1,12 +1,10 @@
 import moment from 'moment'
 import React from 'react'
 
-import { delVideo } from '../api/firebase/db'
+import { delVideo } from '../../api/firebase/db'
 
-function VideoListItem ({ video }) {
+function ListItem ({ video }) {
   const published = moment(video.publishedAt)
-  const desc = video.description?.split('↵')[0]
-  const blurb = (desc.length > 50) ? desc.substring(0, 50) + '...' : desc
 
   const deleteVid = () => {
     const { id } = video
@@ -14,7 +12,7 @@ function VideoListItem ({ video }) {
   }
   
   return (
-    <div key={video.id} className="list-item">
+    <div className="list-item">
       <div className="list-item-image">
         <img src={video.thumbnails?.default.url} className="is-3-tablet" alt="Placeholder image" />
       </div>
@@ -29,4 +27,4 @@ function VideoListItem ({ video }) {
   )
 }
 
-export default VideoListItem
+export default ListItem

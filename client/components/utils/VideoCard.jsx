@@ -1,7 +1,7 @@
 import moment from 'moment'
 import React from 'react'
 
-import { delVideo } from '../api/firebase/db'
+import { delVideo } from '../../api/firebase/db'
 
 function VideoCard ({ video }) {
   const published = moment(video.publishedAt)?.format('ddd DD MMM')
@@ -16,6 +16,7 @@ function VideoCard ({ video }) {
         </div>
         <div className="card-content">
           <p className="title is-5">{video.title}</p>
+          <p className="subtitle is-6">{video.channelTitle}</p>
           <p className="subtitle is-6">{published}</p>
           <div className="content">
             {blurb}

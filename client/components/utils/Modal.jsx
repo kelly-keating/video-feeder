@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 
 import { hideModal } from '../../actions'
 
-
 function Modal({ title, children }) {
   const dispatch = useDispatch()
 

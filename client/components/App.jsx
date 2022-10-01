@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom'
 import { onAuthStateChanged } from "firebase/auth"
 
 import AddFeed from './AddFeed'
-import Bubbles from './Bubbles'
 import FeedDetails from './FeedDetails'
 import Nav from './Nav'
 import Search from './Search'
@@ -62,7 +61,6 @@ function App () {
               <Route path='/search' element={<Search />} />
               <Route path='/feeds/:id' element={<FeedDetails />} />
             </Routes>
-            <Bubbles />
           </>
         ) : (
           <p>Please log in</p>

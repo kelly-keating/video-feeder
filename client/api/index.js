@@ -1,5 +1,5 @@
 import { getYoutubeVideos } from "./youtube"
-import { addFeed, addVid, saveFeedToGroup, setUpdated } from './firebase/db'
+import { addFeed, addVid, deleteFeed, deleteFeedFromGroup, saveFeedToGroup, setUpdated } from './firebase/db'
 
 export function refreshFeeds(uploadLinks, lastUpdated) {
   const isNew = (d) => new Date(d) > new Date(lastUpdated)
@@ -18,6 +18,13 @@ export function saveNewFeed(data, groups) {
     .then(completeAll)
     .then(() => getYoutubeVideos(data.uploads))
     .then(vids => vids.map(vid => addVid(vid.id, vid)))
+    .then(completeAll)
+}
+
+export function removeFeed(feed) {
+  const groups = Object.keys(feed.groups)
+  return deleteFeed(feed.id)
+    .then(() => groups.map(g => deleteFeedFromGroup(feed.id, g)))
     .then(completeAll)
 }
 

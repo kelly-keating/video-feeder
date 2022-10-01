@@ -1,8 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function FeedTile ({ info }) {
+  const goTo = useNavigate()
+  
   return (
-    <div>
+    <div onClick={() => goTo(`/feeds/${info.id}`)}>
       <h4>{info?.title}</h4>
       <img src={info?.thumbnails.default.url} />
     </div>

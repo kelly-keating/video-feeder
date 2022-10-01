@@ -38,11 +38,22 @@ export function saveFeedToGroup (feedId, group) {
   return Promise.all([ set(groupRef, true), set(feedRef, true) ])
 }
 
+export function deleteFeedFromGroup (feedId, group) {
+  const groupRef = ref(db, `${getUserId()}/groups/${group}/${feedId}`)
+  const feedRef = ref(db, `${getUserId()}/feeds/${feedId}/groups/${group}`)
+  return Promise.all([ remove(groupRef), remove(feedRef) ])
+}
+
 // FEED
 
 export function addFeed (id, data) {
   const feedRef = ref(db, `${getUserId()}/feeds/${id}`)
   return set(feedRef, data)
+}
+
+export function deleteFeed (id) {
+  const feedRef = ref(db, `${getUserId()}/feeds/${id}`)
+  return remove(feedRef)
 }
 
 // VIDEO

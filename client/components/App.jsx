@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { onAuthStateChanged } from "firebase/auth"
 
 import Nav from './Nav'
@@ -46,12 +46,12 @@ function App ({ dispatch, loggedIn, showModal }) {
         { loggedIn ? (
           <>
             {showModal && <AddFeed />}
-            <Switch>
-              <Route path='/feeds/:id' component={FeedDetails} />
-              <Route path='/search' component={Search} />
-              <Route path='/subs' component={SubscriptionList} />
-              <Route path='/' component={VideoList} />
-            </Switch>
+            <Routes>
+              <Route path='/feeds/:id' element={<FeedDetails />} />
+              <Route path='/search' element={<Search />} />
+              <Route path='/subs' element={<SubscriptionList />} />
+              <Route path='/' element={<VideoList />} />
+            </Routes>
             <Bubbles />
           </>
         ) : (

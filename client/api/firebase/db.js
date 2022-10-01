@@ -32,6 +32,11 @@ export function addGroup (name) {
   return set(groupRef, { placeholder: true })
 }
 
+export function deleteGroup (name) {
+  const groupRef = ref(db, `${getUserId()}/groups/${name}`)
+  return remove(groupRef)
+}
+
 export function saveFeedToGroup (feedId, group) {
   const groupRef = ref(db, `${getUserId()}/groups/${group}/${feedId}`)
   const feedRef = ref(db, `${getUserId()}/feeds/${feedId}/groups/${group}`)

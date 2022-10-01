@@ -73,8 +73,8 @@ function AddFeed () {
         value={newGroup}
         onChange={handleNewGroup}
       />
-      <button>+</button>
-      <button type="button" onClick={closeNewGroup}>x</button>
+      <button disabled={newGroup === '' || groups.includes(newGroup)}>+</button>
+      <button type="button" onClick={closeNewGroup}>Hide</button>
     </form>
   }
 

@@ -20,6 +20,7 @@ function App () {
   const dispatch = useDispatch()
   const currentModal = useSelector(redux => redux.modal)
   const loggedIn = useSelector(redux => Boolean(redux.auth))
+  const hasLoaded = useSelector(redux => Boolean(redux.groups && redux.feeds && redux.videos))
 
   useEffect(() => {
     dispatch(hideModal())
@@ -47,6 +48,18 @@ function App () {
     startListening(userFn, groupFn, feedFn, vidFn)
   }
 
+  const renderPages = () => (
+    <>
+      {currentModal === 'add' && <AddFeed />}
+      <Routes>
+        <Route path='/' element={<Videos />} />
+        <Route path='/subs' element={<Subscriptions />} />
+        <Route path='/search' element={<Search />} />
+        <Route path='/feeds/:id' element={<FeedDetails />} />
+      </Routes>
+    </>
+  )
+
   return (
     <div className="container" >
       <Nav />
@@ -54,18 +67,8 @@ function App () {
       {currentModal === 'register' && <SignIn />}
       <div className="content" >
         <h1>RSS FEEDER</h1>
-        { loggedIn ? (
-          <>
-            {currentModal === 'add' && <AddFeed />}
-            <Routes>
-              <Route path='/' element={<Videos />} />
-              <Route path='/subs' element={<Subscriptions />} />
-              <Route path='/search' element={<Search />} />
-              <Route path='/feeds/:id' element={<FeedDetails />} />
-            </Routes>
-          </>
-        ) : (
-          <p>Please log in</p>
+        {hasLoaded && (
+          loggedIn ? renderPages() : <p>Please log in</p>
         )}
       </div>
     </div>

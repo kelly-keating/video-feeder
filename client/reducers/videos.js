@@ -1,6 +1,6 @@
 import { SAVE_VIDS } from '../actions'
 
-function reducer (state = {}, action) {
+function reducer (state = null, action) {
   switch (action.type) {
     // case ADD_VIDEOS:
     //   return [...action.videos, ...state]

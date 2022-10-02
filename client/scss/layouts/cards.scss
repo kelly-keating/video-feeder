@@ -1,4 +1,48 @@
+$card-width: 350px;
+$gap: 10px;
 
 .card {
-  max-width: 350px;
+  max-width: $card-width;
+  margin: 10px;
+  padding: $gap;
+  border: black 1px solid;
+  border-radius: 5px;
+  
+  h4 {
+    margin: 0;
+  }
+
+  img {
+    width: calc($card-width - 2px);
+    margin-left: calc(0px - $gap);
+  }
+}
+
+.card__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 70px;
+
+  button {
+    margin-left: $gap;
+  }
+}
+
+.card__subtitle {
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    margin: 5px 0;
+  }
+
+  &_date {
+    width: 100px;
+    text-align: center;
+  }
+
+  &_feed {
+    margin: 0 20px;
+  }
 }

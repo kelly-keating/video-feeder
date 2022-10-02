@@ -23,7 +23,7 @@ function Videos () {
   return (
     <div className="video-container" >
       <button onClick={refreshVids} disabled={loading}>Refresh</button>
-      Last updated - {moment(d).fromNow()}
+      <p>Last updated - {moment(d).fromNow()}</p>
       {videos.length ? <VideoGrid videos={videos} /> : <p>You have nothing left to watch!</p>}
     </div>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { createStore, applyMiddleware, compose } from 'redux'
+import { legacy_createStore as createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
@@ -15,17 +15,11 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)))
 
 document.addEventListener('DOMContentLoaded', () => {
-  render()
-  store.subscribe(render)
-})
-
-function render () {
-  ReactDOM.render(
+  createRoot(document.getElementById('app')).render(
     <Provider store={store}>
       <Router>
         <App />
       </Router>
-    </Provider>,
-    document.getElementById('app')
+    </Provider>
   )
-}
+})

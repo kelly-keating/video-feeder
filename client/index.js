@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { legacy_createStore as createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
+import { ChakraProvider } from '@chakra-ui/react'
 
 // eslint-disable-next-line no-unused-vars
 import initializeFirebase from './api/firebase'
@@ -18,7 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app')).render(
     <Provider store={store}>
       <Router>
-        <App />
+        <ChakraProvider resetCSS={false}>
+          <App />
+        </ChakraProvider>
       </Router>
     </Provider>
   )

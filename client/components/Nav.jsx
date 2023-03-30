@@ -1,6 +1,16 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import {
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger
+} from '@chakra-ui/popover'
+import { Button } from '@chakra-ui/react'
 
 import { openModal } from '../actions'
 import { logout } from '../api/firebase/auth'
@@ -11,45 +21,53 @@ function Nav() {
   
   const showModal = (type) => dispatch(openModal(type))
 
+  const renderLogout = () => (
+    <Popover>
+      <PopoverTrigger>
+        <Button>Logout</Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverHeader>Are you sure?</PopoverHeader>
+        <PopoverBody>
+          <Button onClick={logout}>Yes</Button>
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  )
+
   return (
     <nav className="navbar">
       <img src="/icon-white.png" className="navbar-logo" />
 
-      <div className="navbar-menu">
-        <div className="navbar-start">
-          <Link to="/" className="navbar-item">
-            Home
-          </Link>
+      {auth && (
+        <div className="navbar-menu">
+          <div className="navbar-start">
+            <Link to="/" className="navbar-item">
+              Home
+            </Link>
 
-          <Link to="/subs" className="navbar-item">
-            Subscriptions
-          </Link>
+            <Link to="/subs" className="navbar-item">
+              Subscriptions
+            </Link>
 
-          <Link to="/search" className="navbar-item">
-            Search
-          </Link>
-        </div>
+            <Link to="/search" className="navbar-item">
+              Search
+            </Link>
+          </div>
 
-        <div className="navbar-end">
-          <button className="navbar-item button" onClick={() => showModal('add')}>
-            Add new
-          </button>
+          <div className="navbar-end">
+            <button className="navbar-item button" onClick={() => showModal('add')}>
+              Add new
+            </button>
 
-          <div className="navbar-item">
-            <div className="buttons">
-              {auth ? (
-                <button className="button" onClick={logout}>
-                  Log Out
-                </button>
-              ) : (
-                <button className="button" onClick={() => showModal('register')}>
-                  Log In
-                </button>
-              )}
+            <div className="navbar-item">
+              <div className="buttons">{renderLogout()}</div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </nav>
   )
 }

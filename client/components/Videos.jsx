@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import moment from 'moment'
+import Moment from 'react-moment'
+import { Button, Spinner } from '@chakra-ui/react'
 
 import { VideoGrid } from './utils'
 
@@ -18,12 +19,14 @@ function Videos () {
     .then(() => setLoading(false))
   }
 
-  const d = new Date(lastUpdated)
+  useEffect(() => {
+    refreshVids()
+  }, [])
 
   return (
     <div className="video-container" >
-      <button onClick={refreshVids} disabled={loading}>Refresh</button>
-      <p>Last updated - {moment(d).fromNow()}</p>
+      <Button onClick={refreshVids} isLoading={loading} colorScheme='teal' variant='solid'>Refresh Videos</Button>
+      <p>Last updated - <Moment fromNow>{lastUpdated}</Moment></p>
       {videos.length ? <VideoGrid videos={videos} /> : <p>You have nothing left to watch!</p>}
     </div>
   )

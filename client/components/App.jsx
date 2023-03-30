@@ -15,6 +15,7 @@ import auth from '../api/firebase/auth'
 import { startListening } from '../api/firebase/db'
 import { saveAuth, removeAuth, saveUser, saveTheVids, saveTheGroups, saveTheFeeds, hideModal } from '../actions'
 import { search } from '../api/youtube'
+import { Spinner } from '@chakra-ui/spinner'
 
 function App () {
   const dispatch = useDispatch()
@@ -64,11 +65,10 @@ function App () {
     <div className="container" >
       <Nav />
       <button onClick={search}>Search</button>
-      {currentModal === 'register' && <SignIn />}
       <div className="content" >
         <h1>RSS FEEDER</h1>
-        {hasLoaded && (
-          loggedIn ? renderPages() : <p>Please log in</p>
+        {!loggedIn ? <SignIn /> : (
+          hasLoaded ? renderPages() : <Spinner />
         )}
       </div>
     </div>

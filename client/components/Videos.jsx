@@ -12,15 +12,20 @@ function Videos () {
   const uploadLinks = useSelector(redux => Object.values(redux.feeds).map(feed => feed.uploads))
   const lastUpdated = useSelector(redux => redux.auth.user?.lastUpdated)
   const [loading, setLoading] = useState(false)
-  
+
   const refreshVids = () => {
     setLoading(true)
     refreshFeeds(uploadLinks, lastUpdated)
-    .then(() => setLoading(false))
+      .then(() => setLoading(false))
   }
 
   useEffect(() => {
-    refreshVids()
+    const minsSinceUpdate = Math.floor((((new Date() - new Date(lastUpdated)) % 86400000) % 3600000) / 60000)
+    const tooSoon = minsSinceUpdate < 60
+
+    if (!tooSoon) {
+      refreshVids()
+    }
   }, [])
 
   return (

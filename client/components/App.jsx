@@ -24,10 +24,6 @@ function App () {
   const hasLoaded = useSelector(redux => Boolean(redux.groups && redux.feeds && redux.videos))
 
   useEffect(() => {
-    dispatch(hideModal())
-  }, [loggedIn])
-
-  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('USER SIGNED IN')
@@ -38,7 +34,6 @@ function App () {
         dispatch(removeAuth())
       }
     })
-    // watch()
   }, [])
   
   const startDb = () => {

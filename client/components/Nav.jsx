@@ -58,9 +58,9 @@ function Nav() {
           </div>
 
           <div className="navbar-end">
-            <button className="navbar-item button" onClick={() => showModal('add')}>
+            <Button onClick={() => showModal('add')}>
               Add new
-            </button>
+            </Button>
 
             <div className="navbar-item">
               <div className="buttons">{renderLogout()}</div>

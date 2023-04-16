@@ -7,37 +7,3 @@
 @import './layouts/cards.scss';
 @import './layouts/navbar.scss';
 @import './layouts/bubbles.scss';
-
-
-// Assmt List
-// ------------
-.assmt-row {
-
-  @include tablet {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
-}
-
-.assmt {
-  border-bottom: 1px solid $border-color;
-  padding: 1rem;
-  transition: all ease .3s;
-
-  &:hover {
-    background-color: $border-color;
-  }
-
-  @include tablet {
-    width: 49%;
-    margin: .5%;
-    border: 1px solid $border-color;
-    padding: 2rem;
-    border-radius: .4rem;
-  }
-
-  @include desktop {
-    width: 24%;
-  }
-}

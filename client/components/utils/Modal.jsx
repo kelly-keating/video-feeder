@@ -1,6 +1,16 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
+import {
+  Modal as ChakraModal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
+
 import { hideModal } from '../../actions'
 
 function Modal({ title, children }) {
@@ -9,18 +19,14 @@ function Modal({ title, children }) {
   const closeModal = () => dispatch(hideModal())
 
   return (
-    <div className="modal">
-      <div className="modal-background" onClick={closeModal} />
-      <div className="modal-main">
-        <header>
-        <h2>{title}</h2>
-          <button className="close-modal" onClick={closeModal}>
-            X
-          </button>
-        </header>
-        {children}
-      </div>
-    </div>
+    <ChakraModal isOpen={true} onClose={closeModal}>
+      <ModalOverlay />
+      <ModalContent top='25px'>
+        <ModalHeader>{title}</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>{children}</ModalBody>
+      </ModalContent>
+    </ChakraModal>
   )
 }
 

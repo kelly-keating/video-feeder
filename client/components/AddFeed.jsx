@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Modal } from './utils'
 
 import { saveNewFeed } from '../api'
-import { getYoutubeChannel } from '../api/youtube'
+import { findYoutubeChannel } from '../api/youtube'
 import { addGroup } from '../api/firebase/db'
 
 import { hideModal } from '../actions'
@@ -51,12 +51,14 @@ function AddFeed() {
       .then(() => closeModal())
   }
 
-  const idSearch = (evt) => {
+  const idSearch = async (evt) => {
     evt.preventDefault()
     setLoadingFeed(true)
-    getYoutubeChannel(feedUrl).then((data) => {
+    findYoutubeChannel(feedUrl).then((data) => {
       setFeedData(data)
       setLoadingFeed(false)
+
+      console.log('get channel', data)
     })
   }
 

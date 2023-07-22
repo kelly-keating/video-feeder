@@ -14,7 +14,6 @@ import Videos from './Videos'
 import auth from '../api/firebase/auth'
 import { startListening } from '../api/firebase/db'
 import { saveAuth, removeAuth, saveUser, saveTheVids, saveTheGroups, saveTheFeeds, hideModal } from '../actions'
-import { search } from '../api/youtube'
 import { Spinner } from '@chakra-ui/spinner'
 
 function App () {
@@ -59,7 +58,6 @@ function App () {
   return (
     <div className="container" >
       <Nav />
-      <button onClick={search}>Search</button>
       <div className="content" >
         <h1>RSS FEEDER</h1>
         {!loggedIn ? <SignIn /> : (

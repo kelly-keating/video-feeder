@@ -4,25 +4,48 @@ import { apiKey } from './firebase'
 const YOUTUBE_API = 'https://www.googleapis.com/youtube/v3'
 const API_KEY = apiKey
 
-// TODO: combine with getChannel func below
-export function search() {
-  return request
-    .get(`${YOUTUBE_API}/channels?key=${API_KEY}&forUsername=vlogbrothers&part=snippet,contentDetails`)
-    .then(req => console.log(req.body))
-}
-
-export function getYoutubeChannel (id) {
-  return request
-    .get(`${YOUTUBE_API}/channels?key=${API_KEY}&id=${id}&part=snippet,contentDetails`)
-    .then(req => req.body.items[0])
-    .then(channel => formatChannel(channel))
-}
-
 export function getYoutubeVideos (id) {
   return request
     .get(`${YOUTUBE_API}/playlistItems?key=${API_KEY}&playlistId=${id}&part=snippet,contentDetails&maxResults=50`)
     .then(req => req.body.items)
     .then(videos => videos.map(formatVideo))
+}
+
+// find by user details
+
+export async function findYoutubeChannel (details) {
+  const byId = await getChannelById(details)
+  const byUser = await searchByUsername(details)
+  const generalSearch = await searchForChannel(details)
+  return byId || byUser || generalSearch || null
+}
+
+function searchForChannel(name) {
+  return request
+    .get(`${YOUTUBE_API}/channels?key=${API_KEY}&q=${name}&type=channel&part=snippet,contentDetails&fields=items`)
+    .then(req => {
+      console.log(req.body)
+      return req
+    })
+    .then(req => req.body.items[0])
+    .then(channel => formatChannel(channel))
+    .catch(() => null)
+}
+
+function searchByUsername(name) {
+  return request
+    .get(`${YOUTUBE_API}/channels?key=${API_KEY}&forUsername=${name}&part=snippet,contentDetails`)
+    .then(req => req.body.items[0])
+    .then(channel => formatChannel(channel))
+    .catch(() => null)
+}
+
+function getChannelById(id) {
+  return request
+    .get(`${YOUTUBE_API}/channels?key=${API_KEY}&id=${id}&part=snippet,contentDetails`)
+    .then(req => req.body.items[0])
+    .then(channel => formatChannel(channel))
+    .catch(() => null)
 }
 
 function formatChannel (channel) {

@@ -5,7 +5,7 @@ import VideoCard from './VideoCard'
 function VideoGrid({ videos }) {
   return (
     <div className="tile-container grid">
-      {videos.map((video, i) => <VideoCard key={i} video={video} />)}
+      {videos.map((video) => <VideoCard key={video.id} video={video} />)}
     </div>
   )
 }
